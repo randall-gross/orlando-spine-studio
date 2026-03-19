@@ -111,11 +111,9 @@
     align-items: center;
     background: var(--bg);
     overflow: hidden;
-    max-width: 1400px;
-    margin: 0 auto;
   }
   .hero-left {
-    padding: 80px 60px 80px 88px;
+    padding: 80px 60px 80px max(88px, calc((100vw - 1400px) / 2));
   }
   .hero-badge {
     display: inline-flex;
