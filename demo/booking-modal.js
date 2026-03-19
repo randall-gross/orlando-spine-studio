@@ -114,7 +114,7 @@
       var av = el('div','oss-provider-avatar');
       av.style.cssText = 'background:rgba(45,212,191,0.1);border:1px solid rgba(45,212,191,0.2)';
       var ini = el('span','', p.initials);
-      ini.style.cssText = 'color:#2dd4bf;font-weight:700;font-size:13px';
+      ini.style.cssText = 'color:#0d9488;font-weight:700;font-size:13px';
       av.appendChild(ini);
       var info = el('div','oss-provider-info');
       info.appendChild(el('span','oss-provider-name',  p.name));

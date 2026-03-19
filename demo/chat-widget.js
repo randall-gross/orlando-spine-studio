@@ -236,7 +236,7 @@
     var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
     svg.setAttribute('width','16'); svg.setAttribute('height','16');
     svg.setAttribute('viewBox','0 0 24 24'); svg.setAttribute('fill','none');
-    svg.setAttribute('stroke','#0c0f12'); svg.setAttribute('stroke-width','2.5');
+    svg.setAttribute('stroke','#ffffff'); svg.setAttribute('stroke-width','2.5');
     svg.setAttribute('stroke-linecap','round'); svg.setAttribute('stroke-linejoin','round');
     var p = document.createElementNS('http://www.w3.org/2000/svg','line');
     p.setAttribute('x1','22'); p.setAttribute('y1','2'); p.setAttribute('x2','11'); p.setAttribute('y2','13');
@@ -250,7 +250,7 @@
     var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
     svg.setAttribute('width','22'); svg.setAttribute('height','22');
     svg.setAttribute('viewBox','0 0 24 24'); svg.setAttribute('fill','none');
-    svg.setAttribute('stroke','#0c0f12'); svg.setAttribute('stroke-width','2');
+    svg.setAttribute('stroke','#ffffff'); svg.setAttribute('stroke-width','2');
     svg.setAttribute('stroke-linecap','round'); svg.setAttribute('stroke-linejoin','round');
     svg.className.baseVal = 'icon-chat';
     var path = document.createElementNS('http://www.w3.org/2000/svg','path');
@@ -263,7 +263,7 @@
     var svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
     svg.setAttribute('width','20'); svg.setAttribute('height','20');
     svg.setAttribute('viewBox','0 0 24 24'); svg.setAttribute('fill','none');
-    svg.setAttribute('stroke','#0c0f12'); svg.setAttribute('stroke-width','2.5');
+    svg.setAttribute('stroke','#ffffff'); svg.setAttribute('stroke-width','2.5');
     svg.setAttribute('stroke-linecap','round');
     svg.className.baseVal = 'icon-close';
     svg.style.display = 'none';
