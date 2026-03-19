@@ -16,16 +16,21 @@
     { id: 'wellness', icon: '◎', label: 'Wellness Visit',    desc: 'Maintenance care' },
   ];
 
-  // Subtypes now vary by appointment type
+  // Subtypes vary meaningfully by appointment type
   var SUBTYPES = {
-    new:      ['Chiropractic Adjustment', 'Spinal Decompression', 'Shockwave Therapy',
-               'LightForce Laser',        'Massage Therapy',       'Physical Rehab'],
-    return:   ['Chiropractic Adjustment', 'LightForce Laser',      'Shockwave Therapy',
-               'Spinal Decompression',   'Massage Therapy',        'Physical Rehab'],
-    injury:   ['Chiropractic Adjustment', 'X-Ray Assessment',      'Spinal Decompression',
-               'LightForce Laser',        'Shockwave Therapy',     'Physical Rehab'],
-    wellness: ['Chiropractic Adjustment', 'Massage Therapy',       'LightForce Laser',
-               'Spinal Decompression',   'Shockwave Therapy',      'Physical Rehab'],
+    // New patients see everything — they may not know what they need
+    new:      ['Chiropractic Adjustment', 'X-Ray Assessment',  'Spinal Decompression',
+               'Shockwave Therapy',       'LightForce Laser',  'Massage Therapy',
+               'Physical Rehab'],
+    // Returning patients already have records — no X-ray, just their ongoing care
+    return:   ['Chiropractic Adjustment', 'LightForce Laser',  'Shockwave Therapy',
+               'Spinal Decompression',   'Massage Therapy',    'Physical Rehab'],
+    // Auto / injury — X-ray leads, no standalone massage
+    injury:   ['X-Ray Assessment',        'Chiropractic Adjustment', 'Spinal Decompression',
+               'LightForce Laser',        'Shockwave Therapy',       'Physical Rehab'],
+    // Wellness / maintenance — no imaging, no decompression, massage & laser front
+    wellness: ['Chiropractic Adjustment', 'Massage Therapy',   'LightForce Laser',
+               'Shockwave Therapy'],
   };
 
   var PROVIDERS = [
@@ -51,7 +56,7 @@
 
   function freshState() {
     var now = new Date();
-    return { step:1, type:null, subtype:null, provider:null,
+    return { step:1, type:null, subtypes:[], provider:null,
              date:null, time:null, firstName:'', lastName:'',
              email:'', phone:'', notes:'',
              calMonth: now.getMonth(), calYear: now.getFullYear() };
@@ -60,7 +65,7 @@
 
   function canAdvance() {
     if (S.step === 1) return !!S.type;
-    if (S.step === 2) return !!S.subtype;
+    if (S.step === 2) return S.subtypes.length > 0;
     if (S.step === 3) return !!S.provider;
     if (S.step === 4) return !!S.date && !!S.time;
     if (S.step === 5) return !!(S.firstName && S.email && S.phone);
@@ -95,7 +100,7 @@
       card.appendChild(el('span','oss-card-desc',  t.desc));
       card.addEventListener('click', function() {
         S.type = t.id;
-        S.subtype = null;
+        S.subtypes = [];
         S.step = 2;
         render();
       });
@@ -104,15 +109,21 @@
     container.appendChild(grid);
   }
 
-  // Step 2 — service chip, keyed to the chosen type. Click auto-advances.
+  // Step 2 — multi-select service chips keyed to the chosen type.
   function buildStep2(container) {
-    container.appendChild(el('h3','oss-step-heading','Which service?'));
+    var h = el('h3','oss-step-heading','Which services?');
+    container.appendChild(h);
+    var hint = el('p','oss-step-hint','Select all that apply');
+    container.appendChild(hint);
+
     var pills = el('div','oss-pill-grid oss-pill-grid--step2');
     var services = SUBTYPES[S.type] || SUBTYPES.new;
     services.forEach(function(s) {
-      var p = btn('oss-pill' + (S.subtype === s ? ' selected' : ''), s, function() {
-        S.subtype = s;
-        S.step = 3;
+      var selected = S.subtypes.indexOf(s) !== -1;
+      var p = btn('oss-pill' + (selected ? ' selected' : ''), s, function() {
+        var idx = S.subtypes.indexOf(s);
+        if (idx === -1) { S.subtypes.push(s); }
+        else            { S.subtypes.splice(idx, 1); }
         render();
       });
       pills.appendChild(p);
@@ -273,7 +284,7 @@
       r.appendChild(el('span','oss-confirm-val', val));
       return r;
     }
-    card.appendChild(row('Service',  S.subtype || 'General Visit'));
+    card.appendChild(row('Service',  S.subtypes.length ? S.subtypes.join(', ') : 'General Visit'));
     card.appendChild(row('Provider', prov ? prov.name : '—'));
     card.appendChild(row('Date',     dateStr));
     card.appendChild(row('Time',     S.time || '—'));
@@ -322,9 +333,13 @@
 
     while (footer.firstChild) footer.removeChild(footer.firstChild);
 
-    // Steps 1–3 auto-advance on selection — no footer buttons needed
-    // Steps 4–5 need Continue/Confirm; confirmation screen has Done
-    if (S.step >= 4 && S.step <= TOTAL_STEPS) {
+    // Step 1: auto-advances on card click — no footer
+    // Step 2: multi-select needs Back + Continue
+    // Step 3: auto-advances on provider click — no footer
+    // Steps 4–5: Back + Continue / Confirm
+    // Confirmation: Done button
+    var needsFooter = (S.step === 2) || (S.step >= 4 && S.step <= TOTAL_STEPS);
+    if (needsFooter) {
       var row = el('div','oss-footer-inner');
       row.appendChild(btn('oss-btn-back','← Back', function() { OSSBooking.back(); }));
       var ok  = canAdvance();
@@ -340,7 +355,6 @@
       row.appendChild(btn('oss-btn-next','Done', function() { OSSBooking.close(); }));
       footer.appendChild(row);
     }
-    // Steps 1–3: footer intentionally empty (auto-advance on selection)
   }
 
   /* ── SHELL ──────────────────────────────────────────────────── */

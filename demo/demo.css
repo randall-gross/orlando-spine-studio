@@ -168,8 +168,9 @@
   text-transform: uppercase;
   margin-bottom: 10px;
 }
+.oss-step-hint { font-size: 13px; color: var(--oss-muted); margin: -8px 0 16px; }
 .oss-pill-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-.oss-pill-grid--step2 { gap: 10px; margin-top: 8px; }
+.oss-pill-grid--step2 { gap: 10px; margin-top: 4px; }
 .oss-pill-grid--step2 .oss-pill { padding: 12px 20px; font-size: 14px; }
 .oss-pill {
   background: var(--oss-surface);
