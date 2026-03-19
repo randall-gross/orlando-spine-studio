@@ -89,6 +89,12 @@
        SLIDE 1 — TITLE
     ════════════════════════════════════════ */
     #slide-1 { background: var(--black); text-align: center; }
+    #slide-1 .slide-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
     #slide-1 .bg-grid {
       position: absolute; inset: 0;
       background-image:
@@ -111,6 +117,13 @@
       margin-bottom: 24px;
       animation: fadeUp 0.8s ease 0.3s both;
     }
+    #slide-1 .logo-hero {
+      width: min(560px, 80vw);
+      height: auto;
+      display: block;
+      margin-bottom: 4px;
+      animation: fadeUp 0.8s ease 0.5s both;
+    }
     #slide-1 h1 {
       font-family: 'Outfit', sans-serif;
       font-size: clamp(48px, 8vw, 96px);
@@ -122,13 +135,13 @@
     #slide-1 .sub {
       margin-top: 20px; font-size: 17px;
       color: var(--muted); font-weight: 300;
-      max-width: 480px; margin-left: auto; margin-right: auto;
-      animation: fadeUp 0.8s ease 0.7s both;
+      max-width: 480px;
+      animation: fadeUp 0.8s ease 0.75s both;
     }
     #slide-1 .meta {
       margin-top: 32px;
       display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
-      animation: fadeUp 0.8s ease 0.9s both;
+      animation: fadeUp 0.8s ease 1s both;
     }
     #slide-1 .meta-item {
       font-family: 'JetBrains Mono', monospace;
@@ -470,9 +483,9 @@
 <section class="slide" id="slide-1" data-index="0">
   <div class="bg-grid"></div>
   <div class="spine-glow"></div>
-  <div class="slide-inner" style="position:relative;z-index:1;text-align:center;">
+  <div class="slide-inner" style="position:relative;z-index:1;">
     <p class="eyebrow">Rocket Digital Marketing — Prepared for Dr. James Bowles, DC</p>
-    <img src="/assets/logo/OSS_Horizontal_white.svg" alt="Orlando Spine Studio" style="width:min(560px,80vw);height:auto;margin:0 auto 4px;display:block;" />
+    <img src="/assets/logo/OSS_Horizontal_white.svg" alt="Orlando Spine Studio" class="logo-hero" />
     <p class="sub">A new website built for the next decade — faster, smarter, and unlike anything else in Orlando chiropractic.</p>
     <div class="meta">
       <div class="meta-item"><strong>357</strong>Google Reviews</div>
