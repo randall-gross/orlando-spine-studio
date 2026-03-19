@@ -122,9 +122,15 @@
       var selected = S.subtypes.indexOf(s) !== -1;
       var p = btn('oss-pill' + (selected ? ' selected' : ''), s, function() {
         var idx = S.subtypes.indexOf(s);
-        if (idx === -1) { S.subtypes.push(s); }
-        else            { S.subtypes.splice(idx, 1); }
-        render();
+        if (idx === -1) { S.subtypes.push(s);    p.classList.add('selected'); }
+        else            { S.subtypes.splice(idx, 1); p.classList.remove('selected'); }
+        // Update Continue button state without re-rendering
+        var nxt = document.querySelector('#oss-bm-footer .oss-btn-next');
+        if (nxt) {
+          var ok = S.subtypes.length > 0;
+          nxt.disabled = !ok;
+          nxt.classList.toggle('disabled', !ok);
+        }
       });
       pills.appendChild(p);
     });
