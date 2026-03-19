@@ -10,18 +10,8 @@
 
 (async function ossApiScrape() {
   const BASE = 'https://orlandospinestudio.com/wp-json/wp/v2';
-  const STORE_KEY = 'oss_api_scrape';
 
   // ── helpers ──────────────────────────────────────────────────────────────
-
-  function load() {
-    try { return JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); }
-    catch { return null; }
-  }
-
-  function save(data) {
-    localStorage.setItem(STORE_KEY, JSON.stringify(data));
-  }
 
   function download(filename, obj) {
     var blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' });
@@ -136,84 +126,50 @@
     };
   }
 
-  // ── resume logic ──────────────────────────────────────────────────────────
+  // ── fetch all sections (no localStorage — runs fast, ~2 min total) ─────────
 
-  var existing = load();
-  var result = existing || {
-    scrapedAt:  new Date().toISOString(),
-    posts:      null,
-    pages:      null,
-    media:      null,
-    categories: null,
-    tags:       null,
-  };
+  var result = { scrapedAt: new Date().toISOString() };
 
   console.log('[OSS API Scraper] Starting...');
-  if (existing) console.log('[OSS API Scraper] Resuming from saved state.');
 
   // ── posts ─────────────────────────────────────────────────────────────────
 
-  if (!result.posts) {
-    console.log('[API] Fetching posts...');
-    var rawPosts = await fetchAll('posts', { status: 'publish' });
-    result.posts = rawPosts.map(parsePost);
-    save(result);
-    console.log(`[API] Posts done — ${result.posts.length} items`);
-    await delay(jitter(2000, 4000));
-  } else {
-    console.log(`[API] Posts already fetched (${result.posts.length}) — skipping`);
-  }
+  console.log('[API] Fetching posts...');
+  var rawPosts = await fetchAll('posts', { status: 'publish' });
+  result.posts = rawPosts.map(parsePost);
+  console.log(`[API] Posts done — ${result.posts.length} items`);
+  await delay(jitter(2000, 4000));
 
   // ── pages ─────────────────────────────────────────────────────────────────
 
-  if (!result.pages) {
-    console.log('[API] Fetching pages...');
-    var rawPages = await fetchAll('pages', { status: 'publish' });
-    result.pages = rawPages.map(parsePost);
-    save(result);
-    console.log(`[API] Pages done — ${result.pages.length} items`);
-    await delay(jitter(2000, 4000));
-  } else {
-    console.log(`[API] Pages already fetched (${result.pages.length}) — skipping`);
-  }
+  console.log('[API] Fetching pages...');
+  var rawPages = await fetchAll('pages', { status: 'publish' });
+  result.pages = rawPages.map(parsePost);
+  console.log(`[API] Pages done — ${result.pages.length} items`);
+  await delay(jitter(2000, 4000));
 
   // ── media ─────────────────────────────────────────────────────────────────
 
-  if (!result.media) {
-    console.log('[API] Fetching media library (this may take a while)...');
-    var rawMedia = await fetchAll('media');
-    result.media = rawMedia.map(parseMedia);
-    save(result);
-    console.log(`[API] Media done — ${result.media.length} items`);
-    await delay(jitter(2000, 4000));
-  } else {
-    console.log(`[API] Media already fetched (${result.media.length}) — skipping`);
-  }
+  console.log('[API] Fetching media library...');
+  var rawMedia = await fetchAll('media');
+  result.media = rawMedia.map(parseMedia);
+  console.log(`[API] Media done — ${result.media.length} items`);
+  await delay(jitter(2000, 4000));
 
   // ── categories ────────────────────────────────────────────────────────────
 
-  if (!result.categories) {
-    console.log('[API] Fetching categories...');
-    var rawCats = await fetchAll('categories');
-    result.categories = rawCats.map(parseTaxonomy);
-    save(result);
-    console.log(`[API] Categories done — ${result.categories.length} items`);
-    await delay(jitter(1000, 2000));
-  } else {
-    console.log(`[API] Categories already fetched (${result.categories.length}) — skipping`);
-  }
+  console.log('[API] Fetching categories...');
+  var rawCats = await fetchAll('categories');
+  result.categories = rawCats.map(parseTaxonomy);
+  console.log(`[API] Categories done — ${result.categories.length} items`);
+  await delay(jitter(1000, 2000));
 
   // ── tags ──────────────────────────────────────────────────────────────────
 
-  if (!result.tags) {
-    console.log('[API] Fetching tags...');
-    var rawTags = await fetchAll('tags');
-    result.tags = rawTags.map(parseTaxonomy);
-    save(result);
-    console.log(`[API] Tags done — ${result.tags.length} items`);
-  } else {
-    console.log(`[API] Tags already fetched (${result.tags.length}) — skipping`);
-  }
+  console.log('[API] Fetching tags...');
+  var rawTags = await fetchAll('tags');
+  result.tags = rawTags.map(parseTaxonomy);
+  console.log(`[API] Tags done — ${result.tags.length} items`);
 
   // ── resolve category/tag names on posts & pages ───────────────────────────
 
