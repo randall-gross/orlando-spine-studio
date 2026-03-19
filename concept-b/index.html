@@ -586,27 +586,61 @@
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
   .reveal.visible { opacity: 1; transform: none; }
 
-  .concept-badge {
+  .concept-switcher {
     position: fixed;
     bottom: 24px;
-    left: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
     background: rgba(15,28,46,0.95);
-    border: 1px solid var(--gold);
-    border-radius: 4px;
-    padding: 8px 18px;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    border: 1px solid rgba(196,160,100,0.3);
+    border-radius: 100px;
+    padding: 6px 10px;
     z-index: 200;
     font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  .concept-switcher a {
+    text-decoration: none;
+    padding: 5px 14px;
+    border-radius: 100px;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .concept-switcher .cs-back {
+    color: #94a3b8;
+    border: 1px solid rgba(148,163,184,0.2);
+  }
+  .concept-switcher .cs-back:hover { color: #e2e8f0; border-color: rgba(148,163,184,0.5); }
+  .concept-switcher .cs-divider {
+    width: 1px; height: 20px;
+    background: rgba(255,255,255,0.1);
+    margin: 0 2px;
+  }
+  .concept-switcher .cs-pill { color: #94a3b8; border: 1px solid transparent; }
+  .concept-switcher .cs-pill:hover { color: #e2e8f0; }
+  .concept-switcher .cs-pill.active {
+    background: var(--gold);
+    color: #0f1c2e;
+    font-weight: 700;
   }
 </style>
 </head>
 <body>
 
-<div class="concept-badge">Concept B — Warm Authority</div>
+<div class="concept-switcher">
+  <a href="/" class="cs-back">← Pitch</a>
+  <div class="cs-divider"></div>
+  <a href="/concept-a" class="cs-pill">A</a>
+  <a href="/concept-b" class="cs-pill active">B</a>
+  <a href="/concept-c" class="cs-pill">C</a>
+</div>
 
 <!-- NAV -->
 <nav id="navbar">

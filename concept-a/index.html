@@ -638,28 +638,66 @@
     transform: translateY(0);
   }
 
-  /* ── CONCEPT BADGE ── */
-  .concept-badge {
+  /* ── CONCEPT SWITCHER ── */
+  .concept-switcher {
     position: fixed;
     bottom: 24px;
-    left: 24px;
-    background: rgba(12,15,18,0.9);
-    border: 1px solid var(--accent);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(12,15,18,0.92);
+    border: 1px solid rgba(45,212,191,0.25);
     border-radius: 100px;
-    padding: 8px 18px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--accent);
-    letter-spacing: 1px;
+    padding: 6px 10px;
     z-index: 200;
     font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  .concept-switcher a {
+    text-decoration: none;
+    padding: 5px 14px;
+    border-radius: 100px;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .concept-switcher .cs-back {
+    color: #94a3b8;
+    border: 1px solid rgba(148,163,184,0.2);
+  }
+  .concept-switcher .cs-back:hover { color: #e2e8f0; border-color: rgba(148,163,184,0.5); }
+  .concept-switcher .cs-divider {
+    width: 1px; height: 20px;
+    background: rgba(255,255,255,0.1);
+    margin: 0 2px;
+  }
+  .concept-switcher .cs-pill {
+    color: #94a3b8;
+    border: 1px solid transparent;
+  }
+  .concept-switcher .cs-pill:hover { color: #e2e8f0; }
+  .concept-switcher .cs-pill.active {
+    background: var(--accent);
+    color: #0c0f12;
+    font-weight: 700;
   }
 </style>
 </head>
 <body>
 
-<!-- CONCEPT BADGE -->
-<div class="concept-badge">CONCEPT A — THE STUDIO</div>
+<!-- CONCEPT SWITCHER -->
+<div class="concept-switcher">
+  <a href="/" class="cs-back">← Pitch</a>
+  <div class="cs-divider"></div>
+  <a href="/concept-a" class="cs-pill active">A</a>
+  <a href="/concept-b" class="cs-pill">B</a>
+  <a href="/concept-c" class="cs-pill">C</a>
+</div>
 
 <!-- NAV -->
 <nav id="navbar">
