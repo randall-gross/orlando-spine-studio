@@ -164,10 +164,14 @@
     container.appendChild(list);
   }
 
-  // Step 4 — calendar + time slots.
+  // Step 4 — calendar + time slots side by side.
   function buildStep4(container) {
     container.appendChild(el('h3','oss-step-heading','When works for you?'));
 
+    var layout = el('div','oss-step4-layout');
+
+    // ── Left: calendar ───────────────────────────────────────────
+    var calCol = el('div','oss-step4-cal');
     var today = new Date(); today.setHours(0,0,0,0);
     var y = S.calYear, m = S.calMonth;
     var firstDow  = new Date(y, m, 1).getDay();
@@ -175,20 +179,18 @@
 
     var cal = el('div','oss-calendar');
 
-    // nav
     var nav = el('div','oss-cal-nav');
     var prevBtn = btn('', '‹', function() { OSSBooking._month(-1); });
     var nextBtn = btn('', '›', function() { OSSBooking._month(1);  });
-    var lbl = el('span','', MONTHS[m] + ' ' + y);
-    nav.appendChild(prevBtn); nav.appendChild(lbl); nav.appendChild(nextBtn);
+    nav.appendChild(prevBtn);
+    nav.appendChild(el('span','', MONTHS[m] + ' ' + y));
+    nav.appendChild(nextBtn);
     cal.appendChild(nav);
 
-    // headers
     var hdrs = el('div','oss-cal-headers');
     ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(function(d) { hdrs.appendChild(el('span','',d)); });
     cal.appendChild(hdrs);
 
-    // grid
     var grid = el('div','oss-cal-grid');
     for (var i = 0; i < firstDow; i++) grid.appendChild(el('span','oss-cal-cell empty'));
     for (var d = 1; d <= totalDays; d++) {
@@ -208,24 +210,28 @@
       })(d);
     }
     cal.appendChild(grid);
-    container.appendChild(cal);
+    calCol.appendChild(cal);
+    layout.appendChild(calCol);
 
-    // time slots
-    if (S.date) {
+    // ── Right: time slots ─────────────────────────────────────────
+    var timesCol = el('div','oss-step4-times');
+    if (!S.date) {
+      var ph = el('div','oss-step4-times-placeholder','Select a date to see available times');
+      timesCol.appendChild(ph);
+    } else {
       var slots = SLOTS[S.date.getDay()] || [];
-      if (slots.length) {
-        var ts = el('div','oss-time-section');
-        ts.appendChild(el('p','oss-subtype-label','Available times'));
-        var pg = el('div','oss-pill-grid');
-        slots.forEach(function(t) {
-          pg.appendChild(btn('oss-pill' + (S.time===t?' selected':''), t, function() {
-            S.time = t; render();
-          }));
-        });
-        ts.appendChild(pg);
-        container.appendChild(ts);
-      }
+      timesCol.appendChild(el('div','oss-step4-times-label','Available times'));
+      var tg = el('div','oss-step4-time-grid');
+      slots.forEach(function(t) {
+        tg.appendChild(btn('oss-pill' + (S.time===t?' selected':''), t, function() {
+          S.time = t; render();
+        }));
+      });
+      timesCol.appendChild(tg);
     }
+    layout.appendChild(timesCol);
+
+    container.appendChild(layout);
   }
 
   // Step 5 — patient info.
