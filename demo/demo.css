@@ -156,7 +156,7 @@
 .oss-card.selected { border-color: var(--oss-teal); background: rgba(45,212,191,0.08); }
 .oss-card-icon { font-size: 20px; margin-bottom: 4px; }
 .oss-card-label { font-family: var(--oss-head); font-size: 14px; font-weight: 600; color: var(--oss-text); }
-.oss-card-desc { font-size: 12px; color: var(--oss-muted); }
+.oss-card-desc { font-size: 14px; color: var(--oss-muted); }
 
 /* Pill grid — subtypes + times */
 .oss-subtype-section, .oss-time-section { margin-top: 16px; }
@@ -168,7 +168,7 @@
   text-transform: uppercase;
   margin-bottom: 10px;
 }
-.oss-step-hint { font-size: 13px; color: var(--oss-muted); margin: -8px 0 16px; }
+.oss-step-hint { font-size: 14px; color: var(--oss-muted); margin: -8px 0 16px; }
 .oss-pill-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 .oss-pill-grid--step2 { gap: 10px; margin-top: 4px; }
 .oss-pill-grid--step2 .oss-pill { padding: 12px 20px; font-size: 14px; }
@@ -177,7 +177,7 @@
   border: 1px solid var(--oss-border);
   border-radius: 100px;
   padding: 6px 14px;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--oss-muted);
   cursor: pointer;
   transition: border-color 0.15s, color 0.15s, background 0.15s;
@@ -214,7 +214,7 @@
 }
 .oss-provider-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
 .oss-provider-name { font-size: 14px; font-weight: 600; color: var(--oss-text); }
-.oss-provider-title { font-size: 12px; color: var(--oss-muted); }
+.oss-provider-title { font-size: 14px; color: var(--oss-muted); }
 .oss-provider-check { color: var(--oss-teal); font-size: 18px; font-weight: 700; }
 
 /* Calendar — step 4 */
@@ -232,7 +232,7 @@
   height: 100%;
   min-height: 160px;
   color: var(--oss-muted);
-  font-size: 13px;
+  font-size: 14px;
   text-align: center;
   border: 1px dashed var(--oss-border);
   border-radius: var(--oss-radius);
@@ -333,7 +333,7 @@
 .oss-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .oss-field { display: flex; flex-direction: column; gap: 6px; }
 .oss-field.full { grid-column: 1 / -1; }
-.oss-field label { font-size: 12px; font-weight: 500; color: var(--oss-muted); letter-spacing: 0.04em; }
+.oss-field label { font-size: 14px; font-weight: 500; color: var(--oss-muted); letter-spacing: 0.04em; }
 .oss-field input,
 .oss-field textarea {
   background: var(--oss-surface);
@@ -387,7 +387,7 @@
 }
 .oss-confirm-row:last-child { border-bottom: none; padding-bottom: 0; }
 .oss-confirm-lbl { font-size: 12px; color: var(--oss-muted); font-family: var(--oss-mono); letter-spacing: 0.04em; white-space: nowrap; }
-.oss-confirm-val { font-size: 13px; color: var(--oss-text); text-align: right; line-height: 1.5; }
+.oss-confirm-val { font-size: 14px; color: var(--oss-text); text-align: right; line-height: 1.5; }
 .oss-cal-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 .oss-cal-btn {
   background: var(--oss-surface);
@@ -547,7 +547,7 @@
   flex-shrink: 0;
 }
 .oss-chat-header-info { flex: 1; }
-.oss-chat-header-name { font-size: 13px; font-weight: 600; color: var(--oss-text); font-family: var(--oss-head); }
+.oss-chat-header-name { font-size: 14px; font-weight: 600; color: var(--oss-text); font-family: var(--oss-head); }
 .oss-chat-header-status { font-size: 11px; color: var(--oss-muted); display: flex; align-items: center; gap: 5px; margin-top: 1px; }
 .oss-chat-status-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; animation: oss-pulse-green 2s ease-in-out infinite; }
 @keyframes oss-pulse-green { 0%,100%{opacity:1} 50%{opacity:0.4} }
@@ -580,7 +580,7 @@
   max-width: 82%;
   padding: 10px 14px;
   border-radius: 14px;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
 }
 .oss-chat-msg.bot .oss-chat-bubble-msg {
@@ -608,7 +608,7 @@
   border: 1px solid rgba(45,212,191,0.25);
   border-radius: 20px;
   padding: 7px 14px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--oss-teal);
   cursor: pointer;
   text-align: left;
@@ -672,7 +672,7 @@
   border: 1px solid var(--oss-border);
   border-radius: 20px;
   padding: 8px 14px;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--oss-text);
   font-family: var(--oss-font);
   outline: none;
