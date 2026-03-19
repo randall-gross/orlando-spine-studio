@@ -155,7 +155,12 @@
     position: relative;
     z-index: 2;
     padding: 0 80px;
-    max-width: 720px;
+    width: auto !important;
+  }
+  @media (min-width: 769px) {
+    .hero .hero-content {
+      max-width: 900px;
+    }
   }
   .hero-eyebrow {
     font-family: 'DM Sans', sans-serif;
