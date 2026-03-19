@@ -48,7 +48,7 @@
   border: 1px solid var(--oss-border);
   border-radius: 16px;
   width: 100%;
-  max-width: 620px;
+  max-width: 56rem;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
