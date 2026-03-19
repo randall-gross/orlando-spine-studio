@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orlando Spine Studio — Concept A: The Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --hero-bg: #0c0f12;
+    --nav-bg: rgba(12, 15, 18, 0.85);
+    --footer-bg: #0c0f12;
+    --bg: #f8f9fa;
+    --surface: #ffffff;
+    --surface-alt: #f1f4f7;
+    --border: #e2e8ed;
+    --accent: #2dd4bf;
+    --accent-dark: #1ea898;
+    --accent-glow: rgba(45, 212, 191, 0.12);
+    --text: #111827;
+    --text-secondary: #4b5563;
+    --text-muted: #9ca3af;
+    --text-hero: #f0f4f8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 40px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+  }
+  nav.scrolled {
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+  }
+  .nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: #fff;
+    letter-spacing: -0.3px;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-cta {
+    background: var(--accent);
+    color: #0c0f12 !important;
+    font-weight: 600 !important;
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 14px !important;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s !important;
+  }
+  .nav-cta:hover {
+    background: var(--accent-dark) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(45, 212, 191, 0.35) !important;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: var(--hero-bg);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .hero-bg-animation {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 70% at 65% 50%, rgba(45, 212, 191, 0.05) 0%, transparent 65%),
+      radial-gradient(ellipse 30% 90% at 65% 45%, rgba(45, 212, 191, 0.03) 0%, transparent 55%),
+      radial-gradient(ellipse 80% 40% at 50% 100%, rgba(45, 212, 191, 0.04) 0%, transparent 60%);
+    animation: heroPulse 10s ease-in-out infinite alternate;
+  }
+  @keyframes heroPulse {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+  /* Spine visual - right side */
+  .hero-spine {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 280px;
+    opacity: 0.18;
+  }
+  .spine-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin: 0 auto;
+  }
+  .spine-vertebra {
+    width: 48px;
+    height: 12px;
+    border: 1.5px solid var(--accent);
+    border-radius: 3px;
+    position: relative;
+  }
+  .spine-vertebra::before, .spine-vertebra::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 6px;
+    border: 1.5px solid var(--accent);
+    border-radius: 2px;
+  }
+  .spine-vertebra::before { right: 100%; margin-right: -4px; }
+  .spine-vertebra::after { left: 100%; margin-left: -4px; }
+  .spine-disc {
+    width: 36px;
+    height: 8px;
+    background: rgba(45, 212, 191, 0.25);
+    border-radius: 4px;
+  }
+  .spine-glow {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 280px;
+    height: 500px;
+    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(45, 212, 191, 0.06) 0%, transparent 70%);
+    filter: blur(20px);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 80px;
+    max-width: 720px;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+  .hero-headline {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(56px, 7vw, 88px);
+    font-weight: 800;
+    line-height: 1.0;
+    color: #fff;
+    letter-spacing: -2px;
+    margin-bottom: 28px;
+  }
+  .hero-headline .line {
+    display: block;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .hero-headline .line:nth-child(1) { animation: fadeUp 0.7s ease 0.4s forwards; }
+  .hero-headline .line:nth-child(2) { animation: fadeUp 0.7s ease 0.55s forwards; }
+  .hero-headline .line:nth-child(3) { animation: fadeUp 0.7s ease 0.7s forwards; }
+  .hero-sub {
+    font-size: 18px;
+    color: rgba(240, 244, 248, 0.65);
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 480px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.85s forwards;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 1s forwards;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0c0f12;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 14px 28px;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(45, 212, 191, 0.4);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 14px 28px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover {
+    border-color: rgba(255,255,255,0.5);
+    color: #fff;
+  }
+  .scroll-indicator {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.5s forwards;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--accent));
+    animation: scrollAnim 2s ease-in-out infinite;
+  }
+  @keyframes scrollAnim {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    background: #111418;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: rgba(240, 244, 248, 0.7);
+    white-space: nowrap;
+  }
+  .trust-item strong {
+    color: var(--accent);
+    font-size: 15px;
+  }
+  .trust-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(45, 212, 191, 0.4);
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 80px; }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+  .section-sub {
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 520px;
+    line-height: 1.65;
+    margin-bottom: 56px;
+  }
+
+  /* ── SERVICES ── */
+  .services-section { background: var(--bg); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .service-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 28px;
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: default;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(45, 212, 191, 0.1);
+  }
+  .service-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+  .service-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .service-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .service-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── WHY OSS ── */
+  .why-section { background: var(--surface); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .why-item {}
+  .why-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 48px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+  .why-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .why-desc {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  /* ── TEAM ── */
+  .team-section { background: var(--surface-alt); }
+  .dr-feature {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .dr-photo-placeholder {
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, #1a2030 0%, #0c0f12 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .dr-photo-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(45,212,191,0.1) 0%, transparent 60%);
+  }
+  .dr-credentials {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 28px;
+  }
+  .credential {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .dr-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .dr-title {
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .dr-bio {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 28px;
+  }
+  .dr-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .fact-tag {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 100px;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-section { background: var(--surface); }
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .testimonial-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .stars {
+    color: var(--accent);
+    font-size: 16px;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+  }
+  .quote {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+  .reviewer {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  /* ── CTA DARK ── */
+  .cta-dark {
+    background: #0f1317;
+    padding: 80px;
+    text-align: center;
+  }
+  .cta-dark .section-label { justify-content: center; display: block; }
+  .cta-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+  }
+  .cta-sub {
+    font-size: 17px;
+    color: rgba(240,244,248,0.6);
+    margin-bottom: 40px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+  .insurance-logos {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 48px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .insurance-badge {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(240,244,248,0.5);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 8px 16px;
+    border-radius: 8px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0c0f12;
+    padding: 60px 80px 40px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-brand-name {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .footer-brand-name span { color: var(--accent); }
+  .footer-tagline {
+    font-size: 14px;
+    color: rgba(240,244,248,0.4);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .footer-address {
+    font-size: 13px;
+    color: rgba(240,244,248,0.5);
+    line-height: 1.8;
+  }
+  .footer-col-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(240,244,248,0.4);
+    margin-bottom: 16px;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a {
+    font-size: 14px;
+    color: rgba(240,244,248,0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+  .footer-bottom {
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-copy {
+    font-size: 13px;
+    color: rgba(240,244,248,0.3);
+  }
+  .footer-phone {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    to { opacity: 0.6; }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── CONCEPT BADGE ── */
+  .concept-badge {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    background: rgba(12,15,18,0.9);
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 1px;
+    z-index: 200;
+    font-family: 'JetBrains Mono', monospace;
+  }
+</style>
+</head>
+<body>
+
+<!-- CONCEPT BADGE -->
+<div class="concept-badge">CONCEPT A — THE STUDIO</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">Orlando <span>Spine</span> Studio</div>
+  <ul class="nav-links">
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Conditions</a></li>
+    <li><a href="#">Team</a></li>
+    <li><a href="#">Reviews</a></li>
+    <li><a href="#" class="nav-cta">Book Appointment</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-animation"></div>
+  <div class="hero-spine">
+    <div class="spine-col">
+      <div class="spine-vertebra"></div>
+      <div class="spine-disc"></div>
+      <div class="spine-vertebra"></div>
+      <div class="spine-disc"></div>
+      <div class="spine-vertebra"></div>
+      <div class="spine-disc"></div>
+      <div class="spine-vertebra"></div>
+      <div class="spine-disc"></div>
+      <div class="spine-vertebra"></div>
+      <div class="spine-disc"></div>
+      <div class="spine-vertebra"></div>
+      <div class="spine-disc"></div>
+      <div class="spine-vertebra"></div>
+      <div class="spine-disc"></div>
+      <div class="spine-vertebra"></div>
+      <div class="spine-disc"></div>
+      <div class="spine-vertebra"></div>
+      <div class="spine-disc"></div>
+      <div class="spine-vertebra"></div>
+      <div class="spine-disc"></div>
+      <div class="spine-vertebra"></div>
+      <div class="spine-disc"></div>
+      <div class="spine-vertebra"></div>
+    </div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Orlando's Premier Spine &amp; Performance Clinic</p>
+    <h1 class="hero-headline">
+      <span class="line">Move Better.</span>
+      <span class="line">Feel Stronger.</span>
+      <span class="line">Live Without<br>Limits.</span>
+    </h1>
+    <p class="hero-sub">Expert chiropractic, 40W laser therapy, shockwave, and spinal decompression — all under one roof at 11500 University Blvd.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary">Book Appointment →</a>
+      <a href="#" class="btn-ghost">Our Services</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><strong>357 ★</strong> Google Reviews</div>
+  <div class="trust-dot"></div>
+  <div class="trust-item"><strong>40W</strong> Class IV Laser</div>
+  <div class="trust-dot"></div>
+  <div class="trust-item"><strong>Shockwave</strong> Therapy</div>
+  <div class="trust-dot"></div>
+  <div class="trust-item"><strong>Same-Day</strong> Appointments</div>
+  <div class="trust-dot"></div>
+  <div class="trust-item"><strong>All Major</strong> Insurance</div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section">
+  <div class="section-label">What We Offer</div>
+  <h2 class="section-title">Advanced Care.<br>Real Results.</h2>
+  <p class="section-sub">From precision adjustments to cutting-edge laser therapy — we bring hospital-grade technology to a neighborhood clinic.</p>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">⚡</div>
+      <div class="service-name">LightForce XLi Laser</div>
+      <div class="service-desc">40-watt Class IV deep tissue laser — the most powerful therapeutic laser available. Used by NFL and NBA training staffs.</div>
+      <a href="#" class="service-link">Learn more →</a>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🔊</div>
+      <div class="service-name">Shockwave Therapy</div>
+      <div class="service-desc">Acoustic wave therapy that breaks down scar tissue and accelerates healing in chronic pain conditions.</div>
+      <a href="#" class="service-link">Learn more →</a>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🦴</div>
+      <div class="service-name">Spinal Decompression</div>
+      <div class="service-desc">Non-surgical traction therapy that gently stretches the spine — relieving disc pressure and nerve pain.</div>
+      <a href="#" class="service-link">Learn more →</a>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🤲</div>
+      <div class="service-name">Chiropractic Adjustments</div>
+      <div class="service-desc">Precision spinal adjustments that restore alignment, reduce nerve interference, and unlock your body's natural healing.</div>
+      <a href="#" class="service-link">Learn more →</a>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">💆</div>
+      <div class="service-name">Massage Therapy</div>
+      <div class="service-desc">Eight massage modalities — from deep tissue to trigger point — performed by our experienced licensed therapists.</div>
+      <a href="#" class="service-link">Learn more →</a>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🚗</div>
+      <div class="service-name">Auto &amp; Personal Injury</div>
+      <div class="service-desc">Florida's 14-day PIP rule requires prompt care after an accident. We handle all documentation for your claim.</div>
+      <a href="#" class="service-link">Learn more →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY OSS -->
+<section class="why-section reveal">
+  <div class="section-label">Why Orlando Spine Studio</div>
+  <h2 class="section-title">A Different Kind<br>of Clinic.</h2>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-number">40W</div>
+      <div class="why-title">Technology First</div>
+      <div class="why-desc">We invested in LightForce XLi, shockwave, and motorized decompression — equipment you'd typically find at a hospital-affiliated sports medicine center.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-number">DC+</div>
+      <div class="why-title">Elite Training</div>
+      <div class="why-desc">Dr. James Bowles graduated valedictorian from Palmer College of Chiropractic and completed a VA hospital residency treating high-performance athletes.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-number">357</div>
+      <div class="why-title">Proven Results</div>
+      <div class="why-desc">357 five-star Google reviews from real Orlando patients. Same-day appointments, bilingual staff, and most major insurance accepted.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section">
+  <div class="section-label">Meet Dr. James</div>
+  <div class="dr-feature reveal">
+    <div class="dr-photo-placeholder">👨‍⚕️</div>
+    <div>
+      <div class="dr-credentials">
+        <span class="credential">Palmer College — Valedictorian</span>
+        <span class="credential">VA Hospital Residency</span>
+        <span class="credential">Portsmouth FC · England</span>
+      </div>
+      <div class="dr-name">Dr. James<br>Bowles, DC</div>
+      <div class="dr-title">Founder & Lead Physician</div>
+      <p class="dr-bio">Dr. James didn't follow a conventional path to chiropractic. A standout academic, competitive athlete, and private pilot — he brings the same precision and intensity to patient care that he applies to everything else. Valedictorian at Palmer College. VA hospital training. Treated players at Portsmouth FC in England.</p>
+      <div class="dr-facts">
+        <span class="fact-tag">Palmer Valedictorian</span>
+        <span class="fact-tag">VA Hospital Trained</span>
+        <span class="fact-tag">Portsmouth FC, England</span>
+        <span class="fact-tag">Private Pilot</span>
+        <span class="fact-tag">Bilingual</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="section-label">Patient Reviews</div>
+  <h2 class="section-title">357 Reasons to<br>Visit.</h2>
+  <div class="testimonial-grid">
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="quote">"Dr. James is a 10 on a scale that stops at 5. He spent time taking X-rays, showing and explaining the findings, and offering alternatives. I could not be more impressed with his focus on my health."</p>
+      <div class="reviewer">Leann Papineau</div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="quote">"I have been suffering with a pinched nerve for over two years. Dr. James relieved that pinched nerve in one treatment. I am forever grateful."</p>
+      <div class="reviewer">Barbara H.</div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="quote">"Dr. James is extremely knowledgeable and works really hard to get you where you want to be. Some chiropractors refused to treat me because of my spine curvature. This place has been a godsend."</p>
+      <div class="reviewer">max williamson</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA DARK -->
+<div class="cta-dark reveal">
+  <div class="section-label">Ready to Feel Better?</div>
+  <h2 class="cta-title">Your First Visit<br>Starts Here.</h2>
+  <p class="cta-sub">Same-day appointments available. New patients welcome. Most major insurance accepted.</p>
+  <a href="#" class="btn-primary" style="font-size:16px; padding:16px 36px;">Book Your Appointment →</a>
+  <div class="insurance-logos">
+    <div class="insurance-badge">Blue Cross Blue Shield</div>
+    <div class="insurance-badge">Aetna</div>
+    <div class="insurance-badge">Cigna</div>
+    <div class="insurance-badge">United Healthcare</div>
+    <div class="insurance-badge">Medicare</div>
+    <div class="insurance-badge">Florida Blue</div>
+    <div class="insurance-badge">+ More</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">Orlando <span>Spine</span> Studio</div>
+      <p class="footer-tagline">Advanced chiropractic care for every body — from weekend warriors to work injury recovery.</p>
+      <div class="footer-address">
+        11500 University Blvd, Ste #103<br>
+        Orlando, FL 32817<br><br>
+        <a href="tel:4076586500" style="color: var(--accent); text-decoration:none;">(407) 658-6500</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#">Chiropractic</a></li>
+        <li><a href="#">Laser Therapy</a></li>
+        <li><a href="#">Shockwave</a></li>
+        <li><a href="#">Decompression</a></li>
+        <li><a href="#">Massage</a></li>
+        <li><a href="#">Auto Injury</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Conditions</div>
+      <ul class="footer-links">
+        <li><a href="#">Back Pain</a></li>
+        <li><a href="#">Sciatica</a></li>
+        <li><a href="#">Neck Pain</a></li>
+        <li><a href="#">Neuropathy</a></li>
+        <li><a href="#">Sports Injury</a></li>
+        <li><a href="#">All Conditions →</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Hours</div>
+      <ul class="footer-links">
+        <li><a href="#">Mon: 9–12 · 2–6</a></li>
+        <li><a href="#">Tue: 3–7 PM</a></li>
+        <li><a href="#">Wed: 9–12 · 2–6</a></li>
+        <li><a href="#">Thu: Closed</a></li>
+        <li><a href="#">Fri: 9–12 · 2–6</a></li>
+        <li><a href="#">Sat: 9–12 PM</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Orlando Spine Studio. All rights reserved.</div>
+    <a href="tel:4076586500" class="footer-phone">(407) 658-6500</a>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

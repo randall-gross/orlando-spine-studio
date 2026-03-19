@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orlando Spine Studio — New Website Proposal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0c0f12;
+      --dark:    #111418;
+      --teal:    #2dd4bf;
+      --teal-dim:#1a9e8e;
+      --cream:   #f8f9fa;
+      --text:    #e2e8f0;
+      --muted:   #94a3b8;
+      --red:     #f87171;
+      --gold:    #fbbf24;
+    }
+
+    html {
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── SLIDE BASE ── */
+    .slide {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-inner {
+      max-width: 960px;
+      width: 100%;
+    }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+      animation: fadeInDown 1s ease 2s both;
+    }
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--teal), transparent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+    @keyframes fadeInDown { from{opacity:0;transform:translateX(-50%) translateY(-10px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    @keyframes countUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── LABEL ── */
+    .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 20px;
+    }
+
+    /* ════════════════════════════════════════
+       SLIDE 1 — TITLE
+    ════════════════════════════════════════ */
+    #slide-1 {
+      background: var(--black);
+      text-align: center;
+    }
+    #slide-1 .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(45,212,191,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(45,212,191,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    #slide-1 .spine-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(45,212,191,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #slide-1 .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s ease 0.3s both;
+    }
+    #slide-1 h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: #fff;
+      animation: fadeUp 0.8s ease 0.5s both;
+    }
+    #slide-1 h1 span { color: var(--teal); }
+    #slide-1 .sub {
+      margin-top: 28px;
+      font-size: 18px;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeUp 0.8s ease 0.7s both;
+    }
+    #slide-1 .meta {
+      margin-top: 48px;
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s ease 0.9s both;
+    }
+    #slide-1 .meta-item {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    #slide-1 .meta-item strong {
+      display: block;
+      font-size: 20px;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    /* ════════════════════════════════════════
+       SLIDE 2 — WHAT HAPPENED
+    ════════════════════════════════════════ */
+    #slide-2 { background: #0a0c0e; }
+    #slide-2 .incident-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    #slide-2 .incident-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 0 4px rgba(248,113,113,0.2);
+      animation: blink 1.5s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    #slide-2 .incident-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+    #slide-2 h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    #slide-2 .lead {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 600px;
+      margin-bottom: 48px;
+      line-height: 1.7;
+    }
+    .incident-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .incident-card {
+      background: rgba(248,113,113,0.05);
+      border: 1px solid rgba(248,113,113,0.15);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .incident-card .ic-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    .incident-card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .incident-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .incident-card .callout {
+      margin-top: 10px;
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: rgba(248,113,113,0.1);
+      border: 1px solid rgba(248,113,113,0.3);
+      color: var(--red);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    /* ════════════════════════════════════════
+       SLIDE 3 — WHAT WE RECOVERED
+    ════════════════════════════════════════ */
+    #slide-3 { background: var(--black); }
+    #slide-3 h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    #slide-3 .lead {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 56px;
+      line-height: 1.7;
+    }
+    .recovery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .recovery-stat {
+      background: rgba(45,212,191,0.04);
+      border: 1px solid rgba(45,212,191,0.12);
+      border-radius: 12px;
+      padding: 28px 24px;
+    }
+    .recovery-stat .num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 52px;
+      font-weight: 900;
+      color: var(--teal);
+      line-height: 1;
+      display: block;
+    }
+    .recovery-stat .unit {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 8px;
+      display: block;
+    }
+    .recovery-stat .desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .recovery-note {
+      background: rgba(45,212,191,0.06);
+      border-left: 3px solid var(--teal);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .recovery-note strong { color: var(--teal); }
+
+    /* ════════════════════════════════════════
+       SLIDE 4 — OLD SITE AUDIT
+    ════════════════════════════════════════ */
+    #slide-4 { background: #0a0c0e; }
+    #slide-4 h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    #slide-4 .lead {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+    .audit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .audit-item {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      align-items: start;
+      gap: 16px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .audit-item.critical { border-color: rgba(248,113,113,0.2); background: rgba(248,113,113,0.03); }
+    .audit-item.warning  { border-color: rgba(251,191,36,0.2);  background: rgba(251,191,36,0.03); }
+    .audit-icon { font-size: 18px; margin-top: 2px; }
+    .audit-content h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+    .audit-content p { font-size: 13px; color: var(--muted); }
+    .audit-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      align-self: center;
+    }
+    .badge-critical { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
+    .badge-warning  { background: rgba(251,191,36,0.12);  color: var(--gold); border: 1px solid rgba(251,191,36,0.3); }
+    .badge-info     { background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.3); }
+
+    /* ════════════════════════════════════════
+       SLIDE 5 — WHAT WE'RE BUILDING
+    ════════════════════════════════════════ */
+    #slide-5 { background: var(--black); }
+    #slide-5 h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    #slide-5 .lead {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      max-width: 580px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .feature-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .feature-card:hover {
+      border-color: rgba(45,212,191,0.3);
+      background: rgba(45,212,191,0.03);
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--teal), transparent);
+    }
+    .feature-card .fc-icon { font-size: 28px; margin-bottom: 14px; }
+    .feature-card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .feature-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .feature-card .fc-tag {
+      margin-top: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--teal);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ════════════════════════════════════════
+       SLIDE 6 — CHOOSE YOUR DIRECTION
+    ════════════════════════════════════════ */
+    #slide-6 { background: #0a0c0e; text-align: center; }
+    #slide-6 h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    #slide-6 .lead {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 52px;
+      line-height: 1.7;
+    }
+    .concepts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      text-align: left;
+    }
+    .concept-card {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      background: rgba(255,255,255,0.02);
+    }
+    .concept-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+      border-color: rgba(45,212,191,0.4);
+    }
+    .concept-card .cc-header {
+      padding: 28px 28px 20px;
+      position: relative;
+    }
+    .concept-card.card-a .cc-header { background: linear-gradient(135deg, #0c0f12 0%, #111c24 100%); }
+    .concept-card.card-b .cc-header { background: linear-gradient(135deg, #0f1c2e 0%, #1a2a40 100%); }
+    .concept-card.card-c .cc-header { background: linear-gradient(135deg, #1a202c 0%, #252d3a 100%); }
+    .concept-card .cc-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--teal);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .concept-card .cc-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .concept-card.card-b .cc-title { font-family: 'Georgia', serif; }
+    .concept-card .cc-tagline {
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .concept-card .cc-body {
+      padding: 20px 28px 28px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .concept-card .cc-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .concept-card .cc-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .cc-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(45,212,191,0.08);
+      border: 1px solid rgba(45,212,191,0.2);
+      color: var(--teal);
+    }
+    .concept-card .cc-cta {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--teal);
+    }
+    .concept-card .cc-cta::after {
+      content: '→';
+      transition: transform 0.2s;
+    }
+    .concept-card:hover .cc-cta::after { transform: translateX(4px); }
+
+    /* ════════════════════════════════════════
+       SLIDE 7 — NEXT STEPS
+    ════════════════════════════════════════ */
+    #slide-7 { background: var(--black); text-align: center; }
+    #slide-7 .bg-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center bottom, rgba(45,212,191,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    #slide-7 h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    #slide-7 h2 span { color: var(--teal); }
+    #slide-7 .lead {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 52px;
+      line-height: 1.7;
+    }
+    .steps-row {
+      display: flex;
+      gap: 0;
+      max-width: 720px;
+      margin: 0 auto 48px;
+    }
+    .step {
+      flex: 1;
+      padding: 0 20px;
+      position: relative;
+    }
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      right: 0;
+      width: 100%;
+      height: 1px;
+      background: rgba(45,212,191,0.2);
+    }
+    .step-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(45,212,191,0.1);
+      border: 1px solid rgba(45,212,191,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--teal);
+      margin: 0 auto 16px;
+    }
+    .step h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .step p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .contact-block {
+      background: rgba(45,212,191,0.05);
+      border: 1px solid rgba(45,212,191,0.15);
+      border-radius: 16px;
+      padding: 28px 32px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .contact-block p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .contact-block strong {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      color: #fff;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .contact-block a {
+      color: var(--teal);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+    }
+
+    /* ── NAV DOTS ── */
+    .nav-dots {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 100;
+    }
+    .nav-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+    }
+    .nav-dot.active {
+      background: var(--teal);
+      transform: scale(1.5);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .steps-row { flex-direction: column; gap: 24px; }
+      .step::after { display: none; }
+      .nav-dots { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV DOTS -->
+<nav class="nav-dots" id="navDots">
+  <button class="nav-dot active" data-slide="0" title="Intro"></button>
+  <button class="nav-dot" data-slide="1" title="What Happened"></button>
+  <button class="nav-dot" data-slide="2" title="Recovered"></button>
+  <button class="nav-dot" data-slide="3" title="Old Site Audit"></button>
+  <button class="nav-dot" data-slide="4" title="New Features"></button>
+  <button class="nav-dot" data-slide="5" title="Concepts"></button>
+  <button class="nav-dot" data-slide="6" title="Next Steps"></button>
+</nav>
+
+<!-- ════ SLIDE 1: TITLE ════ -->
+<section class="slide" id="slide-1" data-index="0">
+  <div class="bg-grid"></div>
+  <div class="spine-glow"></div>
+  <div class="slide-inner" style="position:relative;z-index:1;text-align:center;">
+    <p class="eyebrow">Rocket Digital Marketing — Prepared for Dr. James Bowles, DC</p>
+    <h1>Orlando<br/><span>Spine Studio</span></h1>
+    <p class="sub">A new website built for the next decade — faster, smarter, and unlike anything else in Orlando chiropractic.</p>
+    <div class="meta">
+      <div class="meta-item"><strong>357</strong>Google Reviews</div>
+      <div class="meta-item"><strong>686</strong>Images Secured</div>
+      <div class="meta-item"><strong>63</strong>Blog Posts</div>
+      <div class="meta-item"><strong>3</strong>Design Concepts</div>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- ════ SLIDE 2: WHAT HAPPENED ════ -->
+<section class="slide" id="slide-2" data-index="1">
+  <div class="slide-inner">
+    <div class="incident-header">
+      <div class="incident-dot"></div>
+      <span class="incident-label">Incident Report — March 2026</span>
+    </div>
+    <h2>Your previous developer<br/>took your site offline.</h2>
+    <p class="lead">When you switched agencies, The Website Geeks pulled the plug. Every patient who searched for you found nothing — a dead URL on a practice with 357 five-star reviews. Here's what that looked like:</p>
+    <div class="incident-grid">
+      <div class="incident-card critical">
+        <div class="ic-icon">🚫</div>
+        <h3>Site Completely Offline</h3>
+        <p>orlandospinestudio.com returned a blank page. Every ad, every Google listing, every word-of-mouth referral — dead on arrival.</p>
+        <span class="callout">0 new patients from web</span>
+      </div>
+      <div class="incident-card critical">
+        <div class="ic-icon">📉</div>
+        <h3>SEO Authority at Risk</h3>
+        <p>Years of ranking signals, backlinks, and Google trust erode the longer the site stays down. Every day offline costs future rankings.</p>
+        <span class="callout">Rankings degrading</span>
+      </div>
+      <div class="incident-card critical">
+        <div class="ic-icon">🔒</div>
+        <h3>Content Held Hostage</h3>
+        <p>Your images, blog posts, and videos were on their server. Without access, that content was at risk of permanent deletion.</p>
+        <span class="callout">We got it all back ↓</span>
+      </div>
+      <div class="incident-card warning">
+        <div class="ic-icon">⚠️</div>
+        <h3>Domain Control Unclear</h3>
+        <p>Critical to confirm you — not the old dev — control the domain registrar. If they hold it, they hold your business identity.</p>
+        <span class="callout">Verify immediately</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- ════ SLIDE 3: WHAT WE RECOVERED ════ -->
+<section class="slide" id="slide-3" data-index="2">
+  <div class="slide-inner">
+    <p class="label">Asset Recovery — Completed March 18, 2026</p>
+    <h2>We got everything<br/>off their server.</h2>
+    <p class="lead">Before anyone could lock us out or delete files, we crawled the site and recovered every image, video, and page of content. It's all on disk now.</p>
+    <div class="recovery-grid">
+      <div class="recovery-stat">
+        <span class="num">686</span>
+        <span class="unit">Images Downloaded</span>
+        <p class="desc">Every photo from every page — team, services, clinic, blog. 74MB saved to disk.</p>
+      </div>
+      <div class="recovery-stat">
+        <span class="num">4</span>
+        <span class="unit">Videos Secured</span>
+        <p class="desc">Including the spine animation hero video and the LightForce laser promo.</p>
+      </div>
+      <div class="recovery-stat">
+        <span class="num">63</span>
+        <span class="unit">Blog Posts</span>
+        <p class="desc">Full text content from every post — auto injury, arthritis, back pain, sciatica and more.</p>
+      </div>
+      <div class="recovery-stat">
+        <span class="num">101</span>
+        <span class="unit">Pages Archived</span>
+        <p class="desc">Services, conditions, locations, team — every page text is captured and ready to migrate.</p>
+      </div>
+    </div>
+    <div class="recovery-note">
+      <strong>The hero spine animation video is confirmed.</strong> That dark anatomical animation plays behind your headline. We have the file. It becomes the centerpiece of the new design.
+    </div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- ════ SLIDE 4: OLD SITE AUDIT ════ -->
+<section class="slide" id="slide-4" data-index="3">
+  <div class="slide-inner">
+    <p class="label">Old Site Audit — What Was Broken</p>
+    <h2>The old site had<br/>serious problems.</h2>
+    <p class="lead">Beyond going offline, the previous site had issues that were costing you patients every single month.</p>
+    <div class="audit-list">
+      <div class="audit-item critical">
+        <div class="audit-icon">🔴</div>
+        <div class="audit-content">
+          <h4>Site Taken Offline by Previous Developer</h4>
+          <p>The single most damaging thing a developer can do. Every visitor — organic, paid, referral — hits a dead page.</p>
+        </div>
+        <span class="audit-badge badge-critical">Critical</span>
+      </div>
+      <div class="audit-item critical">
+        <div class="audit-icon">🔴</div>
+        <div class="audit-content">
+          <h4>Live Typo: "Paitent Reviews"</h4>
+          <p>Your patient reviews page was publicly titled "Paitent Reviews." On a medical practice website. It was in the nav bar.</p>
+        </div>
+        <span class="audit-badge badge-critical">Critical</span>
+      </div>
+      <div class="audit-item warning">
+        <div class="audit-icon">🟡</div>
+        <div class="audit-content">
+          <h4>14+ Duplicate Blog Posts</h4>
+          <p>The same posts were published twice under different slugs — splitting SEO authority and confusing Google.</p>
+        </div>
+        <span class="audit-badge badge-warning">SEO</span>
+      </div>
+      <div class="audit-item warning">
+        <div class="audit-icon">🟡</div>
+        <div class="audit-content">
+          <h4>No Online Booking System</h4>
+          <p>Patients had to call. No calendar widget, no booking form — just a phone number. Every after-hours visitor was lost.</p>
+        </div>
+        <span class="audit-badge badge-warning">Conversion</span>
+      </div>
+      <div class="audit-item warning">
+        <div class="audit-icon">🟡</div>
+        <div class="audit-content">
+          <h4>No Chat — Zero After-Hours Lead Capture</h4>
+          <p>No live chat, no AI fallback, no booking agent. If someone found you at 11pm, there was nothing to catch them.</p>
+        </div>
+        <span class="audit-badge badge-warning">Conversion</span>
+      </div>
+      <div class="audit-item">
+        <div class="audit-icon">⚪</div>
+        <div class="audit-content">
+          <h4>Looked Like Every Other Chiro Site</h4>
+          <p>Sky blue + white + "Relieve Your Pain Today." No differentiation. Nothing that said this practice is different.</p>
+        </div>
+        <span class="audit-badge badge-info">Brand</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- ════ SLIDE 5: WHAT WE'RE BUILDING ════ -->
+<section class="slide" id="slide-5" data-index="4">
+  <div class="slide-inner">
+    <p class="label">New Build — Next.js on Vercel</p>
+    <h2>Everything the old site<br/>wasn't. And more.</h2>
+    <p class="lead">Built from scratch on modern infrastructure. Every feature your practice actually needs — and nothing it doesn't.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="fc-icon">🎬</div>
+        <h3>Cinematic Hero Video</h3>
+        <p>Your spine animation plays full-screen behind the headline. Dark, precise, unlike anything in Orlando chiropractic.</p>
+        <div class="fc-tag">Already on disk — ready to ship</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">📅</div>
+        <h3>Custom Booking Modal</h3>
+        <p>A beautiful in-site calendar — no iframes, no third-party pages. Multi-step, dark-themed, connected to your HighLevel calendar.</p>
+        <div class="fc-tag">react-day-picker + HighLevel API</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">💬</div>
+        <h3>AI Chat + Live Agent</h3>
+        <p>Business hours: live chat. Off-hours: AI books appointments for you. Patients answered at 2am. Revenue captured.</p>
+        <div class="fc-tag">HighLevel Conversation AI</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">⚡</div>
+        <h3>Sub-Second Load Times</h3>
+        <p>Next.js on Vercel's global edge network. The old WordPress site took 4–8s. The new site targets under 1s.</p>
+        <div class="fc-tag">Next.js 15 + Vercel Edge</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">📍</div>
+        <h3>30+ Local SEO Pages</h3>
+        <p>Dedicated pages for University Acres, Winter Park, Baldwin Park, Oviedo — every neighborhood in your patient base.</p>
+        <div class="fc-tag">Content already written</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">📝</div>
+        <h3>63 Blog Posts Migrated</h3>
+        <p>Deduped, cleaned up, and migrated with proper 301 redirects. SEO authority preserved. No ranking resets.</p>
+        <div class="fc-tag">Full content secured</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">⭐</div>
+        <h3>Google Reviews Integration</h3>
+        <p>Your 357 five-star reviews displayed live, with star ratings in Google search results via schema markup.</p>
+        <div class="fc-tag">LocalBusiness + Review schema</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">📱</div>
+        <h3>Mobile-First Design</h3>
+        <p>Built for phones first. The spine video fills a 9:16 mobile screen edge to edge. Every section tested on every device.</p>
+        <div class="fc-tag">Responsive from day one</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🔒</div>
+        <h3>You Own Everything</h3>
+        <p>The code is yours. Hosted on your Vercel account. No developer can ever take your site offline again.</p>
+        <div class="fc-tag">Full ownership transfer</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- ════ SLIDE 6: THREE CONCEPTS ════ -->
+<section class="slide" id="slide-6" data-index="5">
+  <div class="slide-inner">
+    <p class="label" style="text-align:center;">Three Design Directions</p>
+    <h2>Choose your direction.</h2>
+    <p class="lead">Same content. Same features. Same tech stack. The choice is purely how the site <em>feels</em> the moment someone lands on it.</p>
+    <div class="concepts-grid">
+
+      <a href="/concept-a" class="concept-card card-a">
+        <div class="cc-header">
+          <div class="cc-num">Concept A</div>
+          <div class="cc-title">The Studio</div>
+          <div class="cc-tagline">"Premium. Cinematic. Confident."</div>
+        </div>
+        <div class="cc-body">
+          <p class="cc-desc">Dark hero, light body. Your spine video plays full-screen on near-black. The page feels like Equinox meets a sports medicine clinic. No other chiro in Florida looks like this.</p>
+          <div class="cc-pills">
+            <span class="cc-pill">Near-black hero</span>
+            <span class="cc-pill">Outfit font</span>
+            <span class="cc-pill">Teal accents</span>
+            <span class="cc-pill">Best differentiator</span>
+          </div>
+          <div class="cc-cta">View Concept A</div>
+        </div>
+      </a>
+
+      <a href="/concept-b" class="concept-card card-b">
+        <div class="cc-header">
+          <div class="cc-num">Concept B</div>
+          <div class="cc-title" style="font-family:'Georgia',serif;">Warm Authority</div>
+          <div class="cc-tagline">"Approachable. Trustworthy. Premium."</div>
+        </div>
+        <div class="cc-body">
+          <p class="cc-desc">Deep navy and warm cream. Borrows from luxury medical spas — the kind of place that feels expensive but never cold. Every age group feels welcome. Grandma books here. Athletes book here too.</p>
+          <div class="cc-pills">
+            <span class="cc-pill">Navy + cream</span>
+            <span class="cc-pill">Serif headlines</span>
+            <span class="cc-pill">Gold accents</span>
+            <span class="cc-pill">Broadest appeal</span>
+          </div>
+          <div class="cc-cta">View Concept B</div>
+        </div>
+      </a>
+
+      <a href="/concept-c" class="concept-card card-c">
+        <div class="cc-header">
+          <div class="cc-num">Concept C</div>
+          <div class="cc-title">Clean Signal</div>
+          <div class="cc-tagline">"Bright. Sharp. Modern."</div>
+        </div>
+        <div class="cc-body">
+          <p class="cc-desc">White and light everywhere, teal used boldly. Closest to what premium healthcare brands like One Medical look like — clean, trustworthy, and visibly different from a chain practice.</p>
+          <div class="cc-pills">
+            <span class="cc-pill">White + light</span>
+            <span class="cc-pill">Bold teal</span>
+            <span class="cc-pill">Split hero</span>
+            <span class="cc-pill">SEO optimized</span>
+          </div>
+          <div class="cc-cta">View Concept C</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- ════ SLIDE 7: NEXT STEPS ════ -->
+<section class="slide" id="slide-7" data-index="6">
+  <div class="bg-glow"></div>
+  <div class="slide-inner" style="position:relative;z-index:1;">
+    <p class="label" style="text-align:center;">Ready to Build</p>
+    <h2>Pick a direction.<br/>We'll <span>build the rest.</span></h2>
+    <p class="lead">Everything is in place. Content secured, assets recovered, design ready. One decision and we start building.</p>
+    <div class="steps-row">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Choose a Concept</h4>
+        <p>A, B, C — or a hybrid. Your call today.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>WordPress Export</h4>
+        <p>WP Admin → Tools → Export. Secures your full blog history.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Team Photos</h4>
+        <p>High-res headshots for all 9 staff members.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>We Build</h4>
+        <p>Development starts immediately. New site live in weeks.</p>
+      </div>
+    </div>
+    <div class="contact-block">
+      <p>Questions? Ready to move forward?</p>
+      <strong>Rocket Digital Marketing</strong>
+      <a href="mailto:randall.gross@rocketdigitalmarketing.io">randall.gross@rocketdigitalmarketing.io</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // ── NAV DOT TRACKING ──
+  const slides = document.querySelectorAll('.slide');
+  const dots   = document.querySelectorAll('.nav-dot');
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const idx = parseInt(dot.dataset.slide);
+      slides[idx].scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const idx = parseInt(entry.target.dataset.index);
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.5 });
+
+  slides.forEach(s => observer.observe(s));
+
+  // ── KEYBOARD NAV ──
+  document.addEventListener('keydown', (e) => {
+    const active  = [...slides].findIndex(s => {
+      const r = s.getBoundingClientRect();
+      return r.top >= -100 && r.top < window.innerHeight / 2;
+    });
+    if (e.key === 'ArrowDown' && active < slides.length - 1) {
+      slides[active + 1].scrollIntoView({ behavior: 'smooth' });
+    }
+    if (e.key === 'ArrowUp' && active > 0) {
+      slides[active - 1].scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+</script>
+</body>
+</html>
