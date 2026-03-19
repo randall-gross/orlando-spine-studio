@@ -16,11 +16,17 @@
     { id: 'wellness', icon: '◎', label: 'Wellness Visit',    desc: 'Maintenance care' },
   ];
 
-  var SUBTYPES = [
-    'Chiropractic Adjustment', 'Spinal Decompression',
-    'Shockwave Therapy',       'LightForce Laser',
-    'Massage Therapy',         'Physical Rehab',
-  ];
+  // Subtypes now vary by appointment type
+  var SUBTYPES = {
+    new:      ['Chiropractic Adjustment', 'Spinal Decompression', 'Shockwave Therapy',
+               'LightForce Laser',        'Massage Therapy',       'Physical Rehab'],
+    return:   ['Chiropractic Adjustment', 'LightForce Laser',      'Shockwave Therapy',
+               'Spinal Decompression',   'Massage Therapy',        'Physical Rehab'],
+    injury:   ['Chiropractic Adjustment', 'X-Ray Assessment',      'Spinal Decompression',
+               'LightForce Laser',        'Shockwave Therapy',     'Physical Rehab'],
+    wellness: ['Chiropractic Adjustment', 'Massage Therapy',       'LightForce Laser',
+               'Spinal Decompression',   'Shockwave Therapy',      'Physical Rehab'],
+  };
 
   var PROVIDERS = [
     { id: 'any',   initials: '?',  name: 'No Preference',    title: 'First Available Slot' },
@@ -54,9 +60,10 @@
 
   function canAdvance() {
     if (S.step === 1) return !!S.type;
-    if (S.step === 2) return !!S.provider;
-    if (S.step === 3) return !!S.date && !!S.time;
-    if (S.step === 4) return !!(S.firstName && S.email && S.phone);
+    if (S.step === 2) return !!S.subtype;
+    if (S.step === 3) return !!S.provider;
+    if (S.step === 4) return !!S.date && !!S.time;
+    if (S.step === 5) return !!(S.firstName && S.email && S.phone);
     return true;
   }
 
@@ -77,36 +84,44 @@
 
   /* ── STEP BUILDERS (pure DOM) ───────────────────────────────── */
 
+  // Step 1 — appointment type. Click auto-advances.
   function buildStep1(container) {
     container.appendChild(el('h3','oss-step-heading','What brings you in?'));
-
     var grid = el('div','oss-card-grid');
     TYPES.forEach(function(t) {
       var card = el('button', 'oss-card' + (S.type === t.id ? ' selected' : ''));
       card.appendChild(el('span','oss-card-icon', t.icon));
       card.appendChild(el('span','oss-card-label', t.label));
       card.appendChild(el('span','oss-card-desc',  t.desc));
-      card.addEventListener('click', function() { S.type = t.id; S.subtype = null; render(); });
+      card.addEventListener('click', function() {
+        S.type = t.id;
+        S.subtype = null;
+        S.step = 2;
+        render();
+      });
       grid.appendChild(card);
     });
     container.appendChild(grid);
-
-    if (S.type) {
-      var sub = el('div','oss-subtype-section');
-      sub.appendChild(el('p','oss-subtype-label','Which service?'));
-      var pills = el('div','oss-pill-grid');
-      SUBTYPES.forEach(function(s) {
-        var p = btn('oss-pill' + (S.subtype === s ? ' selected' : ''), s, function() {
-          S.subtype = s; render();
-        });
-        pills.appendChild(p);
-      });
-      sub.appendChild(pills);
-      container.appendChild(sub);
-    }
   }
 
+  // Step 2 — service chip, keyed to the chosen type. Click auto-advances.
   function buildStep2(container) {
+    container.appendChild(el('h3','oss-step-heading','Which service?'));
+    var pills = el('div','oss-pill-grid oss-pill-grid--step2');
+    var services = SUBTYPES[S.type] || SUBTYPES.new;
+    services.forEach(function(s) {
+      var p = btn('oss-pill' + (S.subtype === s ? ' selected' : ''), s, function() {
+        S.subtype = s;
+        S.step = 3;
+        render();
+      });
+      pills.appendChild(p);
+    });
+    container.appendChild(pills);
+  }
+
+  // Step 3 — provider. Click auto-advances.
+  function buildStep3(container) {
     container.appendChild(el('h3','oss-step-heading','Who would you like to see?'));
     var list = el('div','oss-provider-list');
     PROVIDERS.forEach(function(p) {
@@ -122,13 +137,18 @@
       row.appendChild(av);
       row.appendChild(info);
       if (S.provider === p.id) row.appendChild(el('span','oss-provider-check','✓'));
-      row.addEventListener('click', function() { S.provider = p.id; render(); });
+      row.addEventListener('click', function() {
+        S.provider = p.id;
+        S.step = 4;
+        render();
+      });
       list.appendChild(row);
     });
     container.appendChild(list);
   }
 
-  function buildStep3(container) {
+  // Step 4 — calendar + time slots.
+  function buildStep4(container) {
     container.appendChild(el('h3','oss-step-heading','When works for you?'));
 
     var today = new Date(); today.setHours(0,0,0,0);
@@ -191,7 +211,8 @@
     }
   }
 
-  function buildStep4(container) {
+  // Step 5 — patient info.
+  function buildStep5(container) {
     container.appendChild(el('h3','oss-step-heading','Almost there'));
     var grid = el('div','oss-form-grid');
 
@@ -228,7 +249,8 @@
     container.appendChild(grid);
   }
 
-  function buildStep5(container) {
+  // Confirmation screen
+  function buildConfirm(container) {
     container.style.textAlign = 'center';
 
     var icon = el('div','oss-confirm-icon','✓');
@@ -274,6 +296,9 @@
 
   /* ── RENDER ─────────────────────────────────────────────────── */
 
+  var STEP_BUILDERS = [buildStep1, buildStep2, buildStep3, buildStep4, buildStep5, buildConfirm];
+  var TOTAL_STEPS   = 5; // confirmation is not counted as a numbered step
+
   function render() {
     var body   = document.getElementById('oss-bm-body');
     var footer = document.getElementById('oss-bm-footer');
@@ -281,40 +306,41 @@
     var lbl    = document.getElementById('oss-bm-lbl');
     if (!body) return;
 
-    bar.style.width  = S.step === 5 ? '100%' : (((S.step - 1) / 4) * 100) + '%';
-    lbl.textContent  = S.step < 5 ? 'Step ' + S.step + ' of 5' : 'Appointment Confirmed';
+    var isConfirm = S.step > TOTAL_STEPS;
+    bar.style.width = isConfirm ? '100%' : (((S.step - 1) / TOTAL_STEPS) * 100) + '%';
+    lbl.textContent = isConfirm ? 'Appointment Confirmed' : 'Step ' + S.step + ' of ' + TOTAL_STEPS;
 
     body.style.opacity   = '0';
     body.style.transform = 'translateX(16px)';
 
     setTimeout(function() {
       while (body.firstChild) body.removeChild(body.firstChild);
-      var fns = [buildStep1, buildStep2, buildStep3, buildStep4, buildStep5];
-      fns[S.step - 1](body);
+      STEP_BUILDERS[S.step - 1](body);
       body.style.opacity   = '1';
       body.style.transform = 'translateX(0)';
     }, 110);
 
     while (footer.firstChild) footer.removeChild(footer.firstChild);
-    var row = el('div','oss-footer-inner');
 
-    if (S.step < 5) {
-      if (S.step > 1) {
-        row.appendChild(btn('oss-btn-back','← Back', function() { OSSBooking.back(); }));
-      } else {
-        row.appendChild(el('span'));
-      }
+    // Steps 1–3 auto-advance on selection — no footer buttons needed
+    // Steps 4–5 need Continue/Confirm; confirmation screen has Done
+    if (S.step >= 4 && S.step <= TOTAL_STEPS) {
+      var row = el('div','oss-footer-inner');
+      row.appendChild(btn('oss-btn-back','← Back', function() { OSSBooking.back(); }));
       var ok  = canAdvance();
       var nxt = btn('oss-btn-next' + (ok ? '' : ' disabled'),
-                    S.step === 4 ? 'Confirm Booking →' : 'Continue →',
+                    S.step === TOTAL_STEPS ? 'Confirm Booking →' : 'Continue →',
                     function() { OSSBooking.next(); });
       nxt.disabled = !ok;
       row.appendChild(nxt);
-    } else {
+      footer.appendChild(row);
+    } else if (isConfirm) {
+      var row = el('div','oss-footer-inner');
       row.style.justifyContent = 'center';
       row.appendChild(btn('oss-btn-next','Done', function() { OSSBooking.close(); }));
+      footer.appendChild(row);
     }
-    footer.appendChild(row);
+    // Steps 1–3: footer intentionally empty (auto-advance on selection)
   }
 
   /* ── SHELL ──────────────────────────────────────────────────── */
@@ -371,9 +397,8 @@
       if (m) m.classList.remove('active');
       document.body.style.overflow = '';
     },
-    next:  function() { if (canAdvance()) { S.step = Math.min(5, S.step + 1); render(); } },
+    next:  function() { if (canAdvance()) { S.step = Math.min(TOTAL_STEPS + 1, S.step + 1); render(); } },
     back:  function() { S.step = Math.max(1, S.step - 1); render(); },
-    _pick: function(key, val) { S[key] = val; if (key==='type') S.subtype=null; if (key==='date') S.time=null; render(); },
     _date: function(y, m, d) { S.date = new Date(y, m, d); S.time = null; render(); },
     _month: function(dir) {
       S.calMonth += dir;

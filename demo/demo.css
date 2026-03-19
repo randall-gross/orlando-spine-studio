@@ -169,6 +169,8 @@
   margin-bottom: 10px;
 }
 .oss-pill-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.oss-pill-grid--step2 { gap: 10px; margin-top: 8px; }
+.oss-pill-grid--step2 .oss-pill { padding: 12px 20px; font-size: 14px; }
 .oss-pill {
   background: var(--oss-surface);
   border: 1px solid var(--oss-border);
@@ -183,7 +185,7 @@
 .oss-pill:hover { border-color: rgba(45,212,191,0.4); color: var(--oss-text); }
 .oss-pill.selected { border-color: var(--oss-teal); color: var(--oss-teal); background: rgba(45,212,191,0.08); }
 
-/* Provider list — step 2 */
+/* Provider list — step 3 */
 .oss-provider-list { display: flex; flex-direction: column; gap: 10px; }
 .oss-provider {
   background: var(--oss-surface);
