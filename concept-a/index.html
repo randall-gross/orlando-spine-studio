@@ -54,7 +54,7 @@
     box-shadow: 0 1px 0 rgba(255,255,255,0.06);
   }
   .nav-logo { display: flex; align-items: center; }
-  .nav-logo img { height: 36px; width: auto; filter: brightness(0) invert(1); }
+  .nav-logo img { height: 36px; width: auto; filter: invert(1) hue-rotate(180deg); }
   .nav-links {
     display: flex;
     gap: 32px;
@@ -83,6 +83,23 @@
     transform: translateY(-1px);
     box-shadow: 0 4px 20px rgba(45, 212, 191, 0.35) !important;
   }
+
+  /* ── MOBILE MENU ── */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; z-index: 1001; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.8); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu { display: none; position: fixed; top: 0; right: 0; bottom: 0; width: 280px; background: #0c0f12; border-left: 1px solid rgba(255,255,255,0.08); z-index: 999; padding: 80px 32px 40px; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); flex-direction: column; }
+  .mobile-menu.open { transform: translateX(0); }
+  .mobile-menu ul { list-style: none; }
+  .mobile-menu li { border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .mobile-menu a { display: block; padding: 18px 0; font-size: 16px; font-weight: 500; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s; }
+  .mobile-menu a:hover, .mobile-menu a:focus { color: var(--accent); }
+  .mobile-menu-cta { margin-top: 28px; }
+  .mobile-menu-cta a { display: block; background: var(--accent); color: #0c0f12 !important; font-weight: 700 !important; text-align: center; padding: 14px 24px; border-radius: 100px; font-size: 15px; }
+  .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 998; backdrop-filter: blur(2px); }
+  .mobile-overlay.open { display: block; }
 
   /* ── HERO ── */
   .hero {
@@ -153,7 +170,7 @@
   }
   .hero-headline {
     font-family: 'Outfit', sans-serif;
-    font-size: clamp(56px, 7vw, 88px);
+    font-size: clamp(32px, 7vw, 88px);
     font-weight: 800;
     line-height: 1.0;
     color: #fff;
@@ -277,7 +294,7 @@
   }
 
   /* ── SECTIONS ── */
-  section { padding: 100px max(80px, calc((100% - 1400px) / 2)); }
+  section { padding: 100px max(40px, calc((100% - 1400px) / 2)); }
   .section-label {
     font-size: 11px;
     font-weight: 600;
@@ -538,14 +555,14 @@
     gap: 48px;
     margin-bottom: 48px;
   }
-  .footer-brand-name {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 800;
-    font-size: 18px;
-    color: #fff;
-    margin-bottom: 12px;
-  }
-  .footer-brand-name span { color: var(--accent); }
+  .footer-logo { display: block; height: 80px; min-height: 80px; width: auto; filter: invert(1) hue-rotate(180deg); margin-bottom: 20px; }
+  .footer-social { display: flex; gap: 12px; margin-top: 20px; }
+  .footer-social a { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: rgba(240,244,248,0.5); text-decoration: none; transition: color 0.2s, border-color 0.2s; }
+  .footer-social a:hover { color: var(--accent); border-color: var(--accent); }
+  .footer-social svg { width: 16px; height: 16px; fill: currentColor; }
+  .trust-track { display: flex; }
+  .trust-ticker { display: flex; align-items: center; gap: 48px; flex-wrap: wrap; justify-content: center; }
+  .trust-ticker + .trust-ticker { display: none; }
   .footer-tagline {
     font-size: 14px;
     color: rgba(240,244,248,0.4);
@@ -657,6 +674,67 @@
     color: #0c0f12;
     font-weight: 700;
   }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; height: 64px; }
+    .nav-logo img { height: 28px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+
+    /* Concept A mobile: video becomes full-bleed background, spine glows behind headline */
+    .hero-spine {
+      display: block;
+      width: 100%;
+      left: 0;
+      right: 0;
+      opacity: 0.38;
+    }
+    .hero-spine video { object-position: center center; }
+    /* Gradient vignette: dark on left (text), fades right + bottom */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(to right, var(--hero-bg) 0%, rgba(12,15,18,0.7) 50%, rgba(12,15,18,0.1) 100%),
+        linear-gradient(to top, var(--hero-bg) 0%, transparent 35%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 3; padding: 0 24px; max-width: 100%; }
+    .hero-bg-animation { z-index: 0; }
+    .hero-ctas { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+    .trust-bar { padding: 0; overflow: hidden; flex-wrap: nowrap; gap: 0; }
+    .trust-track { animation: trust-ticker 22s linear infinite; display: flex; width: max-content; }
+    .trust-ticker { flex-wrap: nowrap; gap: 32px; padding: 14px 24px; white-space: nowrap; }
+    .trust-ticker + .trust-ticker { display: flex; }
+    @keyframes trust-ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    section { padding: 60px 24px; }
+    .cta-dark { padding: 60px 24px; }
+
+    .services-grid,
+    .why-grid,
+    .testimonial-grid { grid-template-columns: 1fr; }
+    .why-grid { gap: 32px; }
+
+    .dr-feature { grid-template-columns: 1fr; gap: 40px; }
+    .dr-photo-placeholder { aspect-ratio: 4/3; max-height: 280px; }
+    .dr-name { font-size: 28px; }
+
+    footer { padding: 48px 24px 32px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer-logo { height: 60px; min-height: 60px; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  }
+
+  @media (max-width: 480px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+  }
 </style>
 </head>
 <body>
@@ -680,7 +758,27 @@
     <li><a href="#">Reviews</a></li>
     <li><a href="#" class="nav-cta">Book Appointment</a></li>
   </ul>
+  <button class="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation">
+  <ul>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Conditions Treated</a></li>
+    <li><a href="#">Meet the Team</a></li>
+    <li><a href="#">Patient Reviews</a></li>
+    <li><a href="#">New Patients</a></li>
+    <li><a href="#">Insurance</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="mobile-menu-cta">
+    <a href="#">Book Appointment →</a>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -710,15 +808,30 @@
 
 <!-- TRUST BAR -->
 <div class="trust-bar">
-  <div class="trust-item"><strong>357 ★</strong> Google Reviews</div>
-  <div class="trust-dot"></div>
-  <div class="trust-item"><strong>40W</strong> Class IV Laser</div>
-  <div class="trust-dot"></div>
-  <div class="trust-item"><strong>Shockwave</strong> Therapy</div>
-  <div class="trust-dot"></div>
-  <div class="trust-item"><strong>Same-Day</strong> Appointments</div>
-  <div class="trust-dot"></div>
-  <div class="trust-item"><strong>All Major</strong> Insurance</div>
+  <div class="trust-track">
+    <div class="trust-ticker">
+      <div class="trust-item"><strong>357 ★</strong> Google Reviews</div>
+      <div class="trust-dot"></div>
+      <div class="trust-item"><strong>40W</strong> Class IV Laser</div>
+      <div class="trust-dot"></div>
+      <div class="trust-item"><strong>Shockwave</strong> Therapy</div>
+      <div class="trust-dot"></div>
+      <div class="trust-item"><strong>Same-Day</strong> Appointments</div>
+      <div class="trust-dot"></div>
+      <div class="trust-item"><strong>All Major</strong> Insurance</div>
+    </div>
+    <div class="trust-ticker" aria-hidden="true">
+      <div class="trust-item"><strong>357 ★</strong> Google Reviews</div>
+      <div class="trust-dot"></div>
+      <div class="trust-item"><strong>40W</strong> Class IV Laser</div>
+      <div class="trust-dot"></div>
+      <div class="trust-item"><strong>Shockwave</strong> Therapy</div>
+      <div class="trust-dot"></div>
+      <div class="trust-item"><strong>Same-Day</strong> Appointments</div>
+      <div class="trust-dot"></div>
+      <div class="trust-item"><strong>All Major</strong> Insurance</div>
+    </div>
+  </div>
 </div>
 
 <!-- SERVICES -->
@@ -858,12 +971,17 @@
 <footer>
   <div class="footer-grid">
     <div>
-      <div class="footer-brand-name">Orlando <span>Spine</span> Studio</div>
+      <img src="../../assets/images/logo/OSS_Horizontal.png" alt="Orlando Spine Studio" class="footer-logo">
       <p class="footer-tagline">Advanced chiropractic care for every body — from weekend warriors to work injury recovery.</p>
       <div class="footer-address">
         11500 University Blvd, Ste #103<br>
         Orlando, FL 32817<br><br>
         <a href="tel:4076586500" style="color: var(--accent); text-decoration:none;">(407) 658-6500</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/people/Orlando-Spine-Studio/100087570465768/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://www.instagram.com/orlando_spine_studio/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://goo.gl/maps/fo9cqhz2yYe3dtPu6" target="_blank" rel="noopener" aria-label="Google Maps"><svg viewBox="0 0 24 24"><path d="M12 0C7.802 0 4 3.403 4 7.602 4 11.8 7.469 16.812 12 24c4.531-7.188 8-12.2 8-16.398C20 3.403 16.199 0 12 0zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"/></svg></a>
       </div>
     </div>
     <div>
@@ -912,6 +1030,21 @@
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
   });
+
+  // Mobile menu
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileOverlay = document.getElementById('mobileOverlay');
+  function toggleMenu(open) {
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+    mobileMenu.classList.toggle('open', open);
+    mobileOverlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  hamburger.addEventListener('click', () => toggleMenu(!mobileMenu.classList.contains('open')));
+  mobileOverlay.addEventListener('click', () => toggleMenu(false));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
 
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
