@@ -267,10 +267,15 @@
       height: 2px;
       background: linear-gradient(90deg, var(--teal), transparent);
     }
-    .feature-card .fc-icon { font-size: 20px; margin-bottom: 8px; }
+    .feature-card .fc-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
     .feature-card h3 {
       font-family: 'Outfit', sans-serif;
       font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px;
+      display: flex; align-items: center; gap: 8px;
     }
     .feature-card p { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
     .feature-card .fc-tag {
@@ -578,56 +583,47 @@
     <p class="lead">Built from scratch on modern infrastructure. Fast, owned, and designed to grow with the practice.</p>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="fc-icon">🎬</div>
-        <h3>Cinematic Hero Video</h3>
+        <h3><span class="fc-icon">🎬</span>Cinematic Hero Video</h3>
         <p>Your spine animation plays full-screen behind the headline. Dark, precise, unlike anything in Orlando chiropractic.</p>
         <div class="fc-tag">Already on disk — ready to ship</div>
       </div>
       <div class="feature-card">
-        <div class="fc-icon">📅</div>
-        <h3>Custom Booking Modal</h3>
+        <h3><span class="fc-icon">📅</span>Custom Booking Modal</h3>
         <p>A beautiful in-site calendar — no redirects, no iframes. Multi-step, dark-themed, connected to your HighLevel calendar.</p>
         <div class="fc-tag">react-day-picker + HighLevel API</div>
       </div>
       <div class="feature-card">
-        <div class="fc-icon">💬</div>
-        <h3>AI Chat + Live Agent</h3>
+        <h3><span class="fc-icon">💬</span>AI Chat + Live Agent</h3>
         <p>Business hours: live chat. Off-hours: AI books appointments for you. Patients answered at 2am. Revenue captured.</p>
         <div class="fc-tag">HighLevel Conversation AI</div>
       </div>
       <div class="feature-card">
-        <div class="fc-icon">⚡</div>
-        <h3>Sub-Second Load Times</h3>
+        <h3><span class="fc-icon">⚡</span>Sub-Second Load Times</h3>
         <p>Next.js on Vercel's global edge network. Pages load in under a second. Fast sites rank higher and convert better.</p>
         <div class="fc-tag">Next.js 15 + Vercel Edge</div>
       </div>
       <div class="feature-card">
-        <div class="fc-icon">📍</div>
-        <h3>30+ Local SEO Pages</h3>
+        <h3><span class="fc-icon">📍</span>30+ Local SEO Pages</h3>
         <p>Dedicated pages for University Acres, Winter Park, Baldwin Park, Oviedo — every neighborhood in your patient base.</p>
         <div class="fc-tag">Content already written</div>
       </div>
       <div class="feature-card">
-        <div class="fc-icon">📝</div>
-        <h3>54 Blog Posts Migrated</h3>
+        <h3><span class="fc-icon">📝</span>54 Blog Posts Migrated</h3>
         <p>Cleaned up, deduped, and migrated with 301 redirects in place. Years of SEO authority preserved.</p>
         <div class="fc-tag">Full content ready</div>
       </div>
       <div class="feature-card">
-        <div class="fc-icon">⭐</div>
-        <h3>Google Reviews Integration</h3>
+        <h3><span class="fc-icon">⭐</span>Google Reviews Integration</h3>
         <p>Your 357 five-star reviews displayed live, with rich star ratings appearing directly in Google search results.</p>
         <div class="fc-tag">LocalBusiness + Review schema</div>
       </div>
       <div class="feature-card">
-        <div class="fc-icon">📱</div>
-        <h3>Mobile-First Design</h3>
+        <h3><span class="fc-icon">📱</span>Mobile-First Design</h3>
         <p>Built for phones first. The spine video fills a 9:16 mobile screen edge to edge. Tested on every device and size.</p>
         <div class="fc-tag">Responsive from day one</div>
       </div>
       <div class="feature-card">
-        <div class="fc-icon">🔒</div>
-        <h3>You Own Everything</h3>
+        <h3><span class="fc-icon">🔒</span>You Own Everything</h3>
         <p>The code, the hosting, the domain — all in your name. Full ownership and full control from day one.</p>
         <div class="fc-tag">Complete ownership transfer</div>
       </div>
