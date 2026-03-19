@@ -236,6 +236,21 @@
       radial-gradient(circle 300px at 60% 40%, rgba(45,212,191,0.12) 0%, transparent 70%),
       radial-gradient(circle 200px at 30% 70%, rgba(45,212,191,0.06) 0%, transparent 60%);
   }
+  .hero-right-video {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+  .hero-right-video video {
+    height: 100%;
+    width: auto;
+    display: block;
+  }
   .hero-card {
     position: relative;
     z-index: 2;
@@ -696,6 +711,11 @@
     </div>
   </div>
   <div class="hero-right">
+    <div class="hero-right-video">
+      <video autoplay muted loop playsinline>
+        <source src="../../assets/videos/man-outline-spine.mp4" type="video/mp4">
+      </video>
+    </div>
     <div class="hero-card">
       <div class="hero-card-title">Book Your First Visit</div>
       <div class="hero-card-item">

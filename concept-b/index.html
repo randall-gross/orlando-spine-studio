@@ -101,6 +101,21 @@
     align-items: center;
     overflow: hidden;
   }
+  .hero-video {
+    position: absolute;
+    right: 2%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 420px;
+    opacity: 0.45;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+  .hero-video video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
   .hero-texture {
     position: absolute;
     inset: 0;
@@ -657,6 +672,11 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-texture"></div>
+  <div class="hero-video">
+    <video autoplay muted loop playsinline>
+      <source src="../../assets/videos/man-outline-spine.mp4" type="video/mp4">
+    </video>
+  </div>
   <div class="hero-ornament">
     <div class="ornament-cross"></div>
     <div class="ornament-cross h"></div>

@@ -114,51 +114,26 @@
   /* Spine visual - right side */
   .hero-spine {
     position: absolute;
-    right: 8%;
+    right: 4%;
     top: 50%;
     transform: translateY(-50%);
-    width: 280px;
-    opacity: 0.18;
+    width: 420px;
+    opacity: 0.55;
+    mix-blend-mode: screen;
+    pointer-events: none;
   }
-  .spine-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    margin: 0 auto;
-  }
-  .spine-vertebra {
-    width: 48px;
-    height: 12px;
-    border: 1.5px solid var(--accent);
-    border-radius: 3px;
-    position: relative;
-  }
-  .spine-vertebra::before, .spine-vertebra::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 28px;
-    height: 6px;
-    border: 1.5px solid var(--accent);
-    border-radius: 2px;
-  }
-  .spine-vertebra::before { right: 100%; margin-right: -4px; }
-  .spine-vertebra::after { left: 100%; margin-left: -4px; }
-  .spine-disc {
-    width: 36px;
-    height: 8px;
-    background: rgba(45, 212, 191, 0.25);
-    border-radius: 4px;
+  .hero-spine video {
+    width: 100%;
+    height: auto;
+    display: block;
   }
   .spine-glow {
     position: absolute;
     right: 8%;
     top: 50%;
     transform: translateY(-50%);
-    width: 280px;
-    height: 500px;
+    width: 420px;
+    height: 600px;
     background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(45, 212, 191, 0.06) 0%, transparent 70%);
     filter: blur(20px);
   }
@@ -715,31 +690,9 @@
 <section class="hero">
   <div class="hero-bg-animation"></div>
   <div class="hero-spine">
-    <div class="spine-col">
-      <div class="spine-vertebra"></div>
-      <div class="spine-disc"></div>
-      <div class="spine-vertebra"></div>
-      <div class="spine-disc"></div>
-      <div class="spine-vertebra"></div>
-      <div class="spine-disc"></div>
-      <div class="spine-vertebra"></div>
-      <div class="spine-disc"></div>
-      <div class="spine-vertebra"></div>
-      <div class="spine-disc"></div>
-      <div class="spine-vertebra"></div>
-      <div class="spine-disc"></div>
-      <div class="spine-vertebra"></div>
-      <div class="spine-disc"></div>
-      <div class="spine-vertebra"></div>
-      <div class="spine-disc"></div>
-      <div class="spine-vertebra"></div>
-      <div class="spine-disc"></div>
-      <div class="spine-vertebra"></div>
-      <div class="spine-disc"></div>
-      <div class="spine-vertebra"></div>
-      <div class="spine-disc"></div>
-      <div class="spine-vertebra"></div>
-    </div>
+    <video autoplay muted loop playsinline>
+      <source src="../../assets/videos/man-outline-spine.mp4" type="video/mp4">
+    </video>
   </div>
   <div class="hero-content">
     <p class="hero-eyebrow">Orlando's Premier Spine &amp; Performance Clinic</p>
