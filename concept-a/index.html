@@ -114,17 +114,18 @@
   /* Spine visual - right side */
   .hero-spine {
     position: absolute;
-    right: 4%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 420px;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: calc(100vh * 9 / 16);
     opacity: 0.55;
     mix-blend-mode: screen;
     pointer-events: none;
   }
   .hero-spine video {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
   }
   .spine-glow {

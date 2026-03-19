@@ -239,17 +239,17 @@
   .hero-right-video {
     position: absolute;
     inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
     opacity: 0.5;
     mix-blend-mode: screen;
     pointer-events: none;
   }
   .hero-right-video video {
-    height: 100%;
-    width: auto;
+    width: calc(100vh * 9 / 16);
+    height: 100vh;
+    object-fit: cover;
     display: block;
+    margin: 0 auto;
   }
   .hero-card {
     position: relative;
