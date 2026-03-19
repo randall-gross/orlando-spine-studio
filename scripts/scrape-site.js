@@ -276,17 +276,19 @@
   }
 
   /* ── RESUME STATE ────────────────────────────────────────────── */
+  // We store only completed URLs in localStorage (not content) to stay
+  // well under the 5MB quota. Full content lives in memory and downloads
+  // at the end as a JSON file.
 
-  const STORAGE_KEY = 'oss_scrape';
-  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-  const results = saved.results || [];
-  const done    = new Set((results).map(r => r.url));
+  const STORAGE_KEY = 'oss_scrape_done';
+  const done = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+  const results = [];
 
   const todo = URLS.filter(u => !done.has(u));
   const total = URLS.length;
 
   console.log(`%c OSS Scraper`, 'font-size:16px;font-weight:bold;color:#0d9488');
-  console.log(`Already scraped: ${results.length} / ${total}`);
+  console.log(`Already scraped: ${done.size} / ${total}`);
   console.log(`Remaining:       ${todo.length}`);
   console.log(`Estimated time:  ~${Math.ceil(todo.length * 3 / 60)} minutes`);
   console.log('─────────────────────────────────────────────');
@@ -307,8 +309,9 @@
       const data = extractContent(doc, url);
       results.push(data);
 
-      // Save progress to localStorage after every page
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ results, updatedAt: new Date().toISOString() }));
+      // Save only the URL to localStorage (tiny — avoids 5MB quota error)
+      done.add(url);
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...done])); } catch (_) {}
 
       console.log(`  ✓ "${data.title}" — ${data.text.length} chars, ${data.images.length} images`);
     } catch (err) {
