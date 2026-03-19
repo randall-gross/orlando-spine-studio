@@ -39,7 +39,7 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    padding: 0 40px;
+    padding: 0 max(40px, calc((100% - 1440px) / 2));
     height: 72px;
     display: flex;
     align-items: center;
@@ -306,7 +306,7 @@
   }
 
   /* ── SECTIONS ── */
-  section { padding: 100px max(80px, calc((100% - 56rem) / 2)); }
+  section { padding: 100px max(80px, calc((100% - 1400px) / 2)); }
   .section-label {
     font-size: 11px;
     font-weight: 600;
@@ -558,7 +558,7 @@
   /* ── FOOTER ── */
   footer {
     background: #0c0f12;
-    padding: 60px 80px 40px;
+    padding: 60px max(80px, calc((100% - 1440px) / 2)) 40px;
     border-top: 1px solid rgba(255,255,255,0.06);
   }
   .footer-grid {

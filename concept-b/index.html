@@ -39,7 +39,7 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    padding: 0 48px;
+    padding: 0 max(48px, calc((100% - 1440px) / 2));
     height: 76px;
     display: flex;
     align-items: center;
@@ -272,7 +272,7 @@
   }
 
   /* ── GENERAL SECTIONS ── */
-  section { padding: 96px max(88px, calc((100% - 56rem) / 2)); }
+  section { padding: 96px max(88px, calc((100% - 1400px) / 2)); }
   .section-label {
     font-size: 11px;
     font-weight: 500;
@@ -539,7 +539,7 @@
   /* ── FOOTER ── */
   footer {
     background: var(--footer-bg);
-    padding: 64px 88px 40px;
+    padding: 64px max(88px, calc((100% - 1440px) / 2)) 40px;
     border-top: 1px solid rgba(201,168,76,0.1);
   }
   .footer-grid {
