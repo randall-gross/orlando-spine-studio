@@ -256,18 +256,20 @@
 
 @media (max-width: 540px) {
   .oss-step4-layout { flex-direction: column; }
-  .oss-step4-times  { max-height: none; overflow-y: visible; padding-right: 0; }
+  .oss-step4-cal   { width: 100%; }
+  .oss-step4-times { width: 100%; max-height: none; overflow-y: visible; padding-right: 0; }
   .oss-step4-time-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
   .oss-step4-time-grid .oss-pill { padding: 10px 12px; font-size: 14px; text-align: center; }
 
-  /* Calendar — larger touch targets on mobile */
-  .oss-calendar { padding: 14px; }
+  /* Calendar — full width + larger touch targets on mobile */
+  .oss-calendar { width: 100%; box-sizing: border-box; padding: 14px; }
   .oss-cal-nav span { font-size: 15px; }
   .oss-cal-nav button { width: 36px; height: 36px; font-size: 18px; }
   .oss-cal-headers span { font-size: 12px; padding: 4px 0; }
   .oss-cal-grid { gap: 3px; }
   .oss-cal-cell { height: 42px; font-size: 14px; border-radius: 8px; }
   .oss-step4-times-label { font-size: 13px; letter-spacing: 0.06em; margin-top: 4px; }
+  .oss-step4-times-placeholder { width: 100%; box-sizing: border-box; }
 }
 
 .oss-calendar {
