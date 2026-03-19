@@ -430,6 +430,41 @@
     }
     .nav-dot.active { background: var(--teal); transform: scale(1.5); }
 
+    /* ── DESKTOP FONT SCALING (1200px+) ── */
+    @media (min-width: 1200px) {
+      /* Pitch slide body text — bump from 14px to 16px */
+      .opp-card h3       { font-size: 15px; }
+      .opp-card p        { font-size: 15px; }
+      .opp-card .oc-stat { font-size: 12px; }
+
+      .feature-card h3  { font-size: 16px; }
+      .feature-card p   { font-size: 15px; }
+      .feature-card .fc-tag { font-size: 11px; }
+
+      .concept-card .cc-title  { font-size: 20px; }
+      .concept-card .cc-tagline { font-size: 15px; }
+      .concept-card .cc-desc   { font-size: 15px; }
+      .concept-card .cc-cta    { font-size: 15px; }
+
+      .recovery-stat .desc { font-size: 15px; }
+      .recovery-stat .unit { font-size: 12px; }
+      .recovery-stat .num  { font-size: 44px; }
+
+      .step h4 { font-size: 15px; }
+      .step p  { font-size: 15px; }
+
+      #slide-2 .lead,
+      #slide-3 .lead,
+      #slide-4 .lead,
+      #slide-5 .lead { font-size: 19px; }
+
+      .contact-block p { font-size: 15px; }
+      .contact-block strong { font-size: 22px; }
+      .contact-block a { font-size: 15px; }
+
+      .label { font-size: 12px; }
+    }
+
     @media (max-width: 768px) {
       /* Allow slides to scroll naturally on mobile */
       .slide { height: auto; min-height: 100svh; padding: 80px 20px 60px; justify-content: flex-start; }
