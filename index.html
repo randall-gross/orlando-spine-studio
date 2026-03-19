@@ -412,10 +412,46 @@
     }
     .nav-dot.active { background: var(--teal); transform: scale(1.5); }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
+      /* Allow slides to scroll naturally on mobile */
+      .slide { height: auto; min-height: 100svh; padding: 80px 20px 60px; justify-content: flex-start; }
+
+      /* Slide 1 */
+      #slide-1 img { width: min(300px, 85vw) !important; }
+      #slide-1 .sub { font-size: 15px; margin-top: 14px; }
+      #slide-1 .meta { gap: 16px; margin-top: 24px; flex-wrap: wrap; justify-content: center; }
+      #slide-1 .meta-item strong { font-size: 24px; }
+      #slide-1 .meta-item { font-size: 10px; }
+
+      /* Slide 2 */
+      #slide-2 h2 { font-size: clamp(26px, 6vw, 38px); }
+      .opp-grid { grid-template-columns: 1fr; gap: 10px; }
+
+      /* Slide 3 */
+      #slide-3 h2 { font-size: clamp(26px, 6vw, 38px); }
+      .recovery-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .recovery-stat .num { font-size: 32px; }
+
+      /* Slide 4 */
+      #slide-4 h2 { font-size: clamp(24px, 5.5vw, 36px); }
+      .features-grid { grid-template-columns: 1fr; gap: 8px; }
+
+      /* Slide 5 */
+      #slide-5 h2 { font-size: clamp(28px, 6vw, 40px); }
+      .concepts-grid { grid-template-columns: 1fr; gap: 14px; }
+
+      /* Slide 6 */
+      #slide-6 h2 { font-size: clamp(28px, 6vw, 42px); }
       .steps-row { flex-direction: column; gap: 24px; }
       .step::after { display: none; }
+      .contact-block { padding: 20px; }
+
       .nav-dots { display: none; }
+      .scroll-hint { display: none; }
+    }
+
+    @media (max-width: 400px) {
+      .recovery-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
