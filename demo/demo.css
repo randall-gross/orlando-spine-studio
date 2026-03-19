@@ -223,8 +223,8 @@
   gap: 20px;
   align-items: flex-start;
 }
-.oss-step4-cal   { flex: 0 0 260px; }
-.oss-step4-times { flex: 1; min-width: 0; }
+.oss-step4-cal   { flex: 2; min-width: 0; }
+.oss-step4-times { flex: 1; min-width: 0; overflow-y: auto; max-height: 300px; padding-right: 4px; }
 .oss-step4-times-placeholder {
   display: flex;
   align-items: center;
@@ -249,10 +249,16 @@
 }
 .oss-step4-time-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 6px;
 }
 .oss-step4-time-grid .oss-pill { justify-content: center; }
+
+@media (max-width: 540px) {
+  .oss-step4-layout { flex-direction: column; }
+  .oss-step4-times  { max-height: none; overflow-y: visible; padding-right: 0; }
+  .oss-step4-time-grid { grid-template-columns: 1fr 1fr; }
+}
 
 .oss-calendar {
   background: var(--oss-surface);
