@@ -4,14 +4,25 @@ import { defineMiddleware } from "astro:middleware";
  * Admin path obfuscation middleware.
  *
  * - /studio-ops/*  →  rewrites to /_emdash/*
- * - /_emdash/*     →  404 in production (non-localhost)
- *
- * Uses Astro's reroute to transparently serve the emdash admin
- * at a custom, non-guessable path.
+ * - ALL responses  →  rewrite /_emdash in Location headers to /studio-ops
+ * - /_emdash/*     →  404 in production for non-localhost
  */
 
 const CUSTOM_PREFIX = "/studio-ops";
 const INTERNAL_PREFIX = "/_emdash";
+
+function patchLocationHeader(response: Response): Response {
+	const location = response.headers.get("location");
+	if (!location || !location.includes(INTERNAL_PREFIX)) return response;
+
+	const headers = new Headers(response.headers);
+	headers.set("location", location.replaceAll(INTERNAL_PREFIX, CUSTOM_PREFIX));
+	return new Response(response.body, {
+		status: response.status,
+		statusText: response.statusText,
+		headers,
+	});
+}
 
 export const onRequest = defineMiddleware(async (context, next) => {
 	const path = context.url.pathname;
@@ -19,10 +30,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
 	// Rewrite custom path → internal emdash path
 	if (path.startsWith(CUSTOM_PREFIX)) {
 		const rewritten = path.replace(CUSTOM_PREFIX, INTERNAL_PREFIX) + context.url.search;
-		return context.rewrite(rewritten);
+		return patchLocationHeader(await context.rewrite(rewritten));
 	}
 
-	// Block direct /_emdash access from non-localhost in production
+	// Block direct /_emdash access in production from non-localhost
 	if (path.startsWith(INTERNAL_PREFIX) && import.meta.env.PROD) {
 		const host = context.request.headers.get("host") || "";
 		const isLocal =
@@ -35,5 +46,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
 		}
 	}
 
-	return next();
+	// For ALL responses (including public pages that emdash might redirect
+	// to /_emdash/admin/setup), patch the Location header
+	const response = await next();
+	return patchLocationHeader(response);
 });
