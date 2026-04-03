@@ -1,0 +1,49 @@
+---
+import { getEmDashEntry } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../../layouts/Base.astro";
+
+const { slug } = Astro.params;
+const { entry: post, cacheHint } = await getEmDashEntry("posts", slug!);
+
+if (!post) {
+  return Astro.redirect("/404");
+}
+
+try {
+  Astro.cache.set(cacheHint);
+} catch {}
+---
+
+<Base title={post.data.title} description={post.data.excerpt}>
+  <article class="blog-post section">
+    <h1>{post.data.title}</h1>
+    {post.data.content && <PortableText value={post.data.content} />}
+  </article>
+</Base>
+
+<style>
+  .blog-post {
+    max-width: 720px;
+    margin: 0 auto;
+    padding-top: 120px;
+  }
+
+  .blog-post h1 { margin-bottom: 32px; }
+
+  .blog-post :global(p) {
+    margin-bottom: 16px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .blog-post :global(h2) {
+    margin-top: 48px;
+    margin-bottom: 16px;
+  }
+
+  .blog-post :global(img) {
+    border-radius: 12px;
+    margin: 24px 0;
+  }
+</style>

@@ -1,0 +1,39 @@
+---
+import { getEmDashEntry } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../../layouts/Base.astro";
+
+const { slug } = Astro.params;
+const { entry: service, cacheHint } = await getEmDashEntry("services", slug!);
+
+if (!service) {
+  return Astro.redirect("/404");
+}
+
+try {
+  Astro.cache.set(cacheHint);
+} catch {}
+---
+
+<Base title={service.data.title} description={service.data.short_description}>
+  <article class="service-detail section">
+    <h1>{service.data.title}</h1>
+    {service.data.content && <PortableText value={service.data.content} />}
+  </article>
+</Base>
+
+<style>
+  .service-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 120px;
+  }
+
+  .service-detail h1 { margin-bottom: 32px; }
+
+  .service-detail :global(p) {
+    margin-bottom: 16px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+</style>

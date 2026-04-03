@@ -1,0 +1,74 @@
+---
+interface Props {
+  node: {
+    items: Array<{ icon?: string; text: string }>;
+  };
+}
+
+const { node } = Astro.props;
+const { items } = node;
+---
+
+<section class="trust-section">
+  <div class="trust-track">
+    <div class="trust-ticker">
+      {items.map((item) => (
+        <span class="trust-item">
+          {item.icon && <span class="trust-icon">{item.icon}</span>}
+          {item.text}
+        </span>
+      ))}
+    </div>
+    <div class="trust-ticker" aria-hidden="true">
+      {items.map((item) => (
+        <span class="trust-item">
+          {item.icon && <span class="trust-icon">{item.icon}</span>}
+          {item.text}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust-section {
+    background: var(--bg-alt, var(--surface));
+    padding: 16px 0;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .trust-track {
+    display: flex;
+    width: max-content;
+    animation: ticker 30s linear infinite;
+  }
+
+  .trust-ticker {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    padding: 0 24px;
+  }
+
+  .trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+
+  .trust-icon { font-size: 18px; }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .trust-track:hover { animation-play-state: paused; }
+</style>

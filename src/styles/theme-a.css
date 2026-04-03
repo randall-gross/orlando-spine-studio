@@ -1,0 +1,22 @@
+/* Theme A — "The Studio" — Dark + Teal, Equinox aesthetic */
+:root {
+  --font-display: 'Outfit';
+  --font-body: 'DM Sans';
+  --font-mono: 'JetBrains Mono';
+
+  --bg: #0c0f12;
+  --bg-alt: #141820;
+  --surface: #1a1f28;
+  --border: rgba(255, 255, 255, 0.08);
+  --accent: #2dd4bf;
+  --accent-dark: #1ea898;
+  --accent-soft: rgba(45, 212, 191, 0.12);
+  --accent-glow: rgba(45, 212, 191, 0.3);
+  --dark-footer: #080a0d;
+  --text: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --nav-bg: rgba(12, 15, 18, 0.9);
+  --hero-gradient: linear-gradient(135deg, #0c0f12 0%, #141820 100%);
+  --card-bg: rgba(255, 255, 255, 0.03);
+}

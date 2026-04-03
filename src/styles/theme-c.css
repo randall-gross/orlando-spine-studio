@@ -1,0 +1,22 @@
+/* Theme C — "Clean Signal" — White + Teal, One Medical aesthetic */
+:root {
+  --font-display: 'Outfit';
+  --font-body: 'Inter';
+  --font-mono: 'JetBrains Mono';
+
+  --bg: #ffffff;
+  --bg-alt: #f4f7f9;
+  --surface: #ffffff;
+  --border: #e5eaee;
+  --accent: #2dd4bf;
+  --accent-dark: #1ea898;
+  --accent-soft: rgba(45, 212, 191, 0.08);
+  --accent-glow: rgba(45, 212, 191, 0.3);
+  --dark-footer: #111827;
+  --text: #1a202c;
+  --text-secondary: #4a5568;
+  --text-muted: #a0aec0;
+  --nav-bg: rgba(255, 255, 255, 0.95);
+  --hero-gradient: linear-gradient(135deg, #ffffff 0%, #f4f7f9 100%);
+  --card-bg: rgba(0, 0, 0, 0.02);
+}

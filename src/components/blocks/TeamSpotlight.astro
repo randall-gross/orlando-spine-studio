@@ -1,0 +1,92 @@
+---
+interface Props {
+  node: {
+    name: string;
+    title: string;
+    image?: { src: string; alt?: string };
+    credentials?: string[];
+    bio: string;
+    facts?: string[];
+  };
+}
+
+const { node } = Astro.props;
+const { name, title: jobTitle, image, credentials, bio, facts } = node;
+---
+
+<section class="team section">
+  <div class="team-grid">
+    {image && (
+      <div class="team-image">
+        <img src={image.src} alt={image.alt || name} loading="lazy" />
+      </div>
+    )}
+    <div class="team-content">
+      {credentials && credentials.length > 0 && (
+        <div class="team-credentials">
+          {credentials.map((cred) => (
+            <span class="team-cred-tag">{cred}</span>
+          ))}
+        </div>
+      )}
+      <h2 class="team-name">{name}</h2>
+      <p class="team-title">{jobTitle}</p>
+      <p class="team-bio">{bio}</p>
+      {facts && facts.length > 0 && (
+        <div class="team-facts">
+          {facts.map((fact) => (
+            <span class="team-fact">{fact}</span>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .team-image img {
+    width: 100%;
+    border-radius: 16px;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+  }
+
+  .team-content { display: flex; flex-direction: column; gap: 16px; }
+
+  .team-credentials { display: flex; flex-wrap: wrap; gap: 8px; }
+  .team-cred-tag {
+    padding: 4px 12px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+  }
+
+  .team-name { font-size: clamp(32px, 4vw, 48px); font-weight: 700; }
+  .team-title { font-size: 16px; color: var(--accent); font-weight: 600; margin-top: -8px; }
+  .team-bio { font-size: 16px; color: var(--text-secondary); line-height: 1.7; }
+
+  .team-facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .team-fact {
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .team-grid { grid-template-columns: 1fr; gap: 32px; }
+    .team-image img { aspect-ratio: 4/3; }
+  }
+</style>

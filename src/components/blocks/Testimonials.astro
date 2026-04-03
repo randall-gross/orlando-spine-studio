@@ -1,0 +1,68 @@
+---
+interface Props {
+  node: {
+    headline?: string;
+    reviews: Array<{
+      name: string;
+      text: string;
+      rating?: number;
+      source?: string;
+    }>;
+  };
+}
+
+const { node } = Astro.props;
+const { headline, reviews } = node;
+---
+
+<section class="testimonials section">
+  {headline && <h2 class="testimonials-headline">{headline}</h2>}
+  <div class="testimonials-grid">
+    {reviews.map((review) => (
+      <div class="testimonial-card">
+        <div class="testimonial-stars">
+          {Array.from({ length: review.rating || 5 }).map(() => (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          ))}
+        </div>
+        <p class="testimonial-text">"{review.text}"</p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">{review.name}</span>
+          {review.source && <span class="testimonial-source">{review.source}</span>}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .testimonials-headline { text-align: center; margin-bottom: 56px; }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .testimonial-card {
+    background: var(--card-bg, var(--surface));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .testimonial-stars { display: flex; gap: 2px; }
+  .testimonial-text { font-size: 15px; color: var(--text-secondary); line-height: 1.7; flex: 1; }
+  .testimonial-author { display: flex; flex-direction: column; gap: 2px; }
+  .testimonial-name { font-size: 14px; font-weight: 600; }
+  .testimonial-source { font-size: 12px; color: var(--text-muted); }
+
+  @media (max-width: 768px) {
+    .testimonials-grid { grid-template-columns: 1fr; }
+  }
+</style>

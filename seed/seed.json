@@ -1,0 +1,329 @@
+{
+  "$schema": "https://emdashcms.com/seed.schema.json",
+  "version": "1",
+  "meta": {
+    "name": "Orlando Spine Studio",
+    "description": "Premium chiropractic and recovery care website",
+    "author": "RDM / Et'al Software"
+  },
+
+  "settings": {
+    "title": "Orlando Spine Studio",
+    "tagline": "Advanced chiropractic and recovery care for every body in Orlando"
+  },
+
+  "collections": [
+    {
+      "slug": "pages",
+      "label": "Pages",
+      "labelSingular": "Page",
+      "supports": ["drafts", "revisions", "seo"],
+      "fields": [
+        { "slug": "title", "label": "Title", "type": "string", "required": true },
+        { "slug": "content", "label": "Content", "type": "portableText" }
+      ]
+    },
+    {
+      "slug": "posts",
+      "label": "Blog Posts",
+      "labelSingular": "Post",
+      "supports": ["drafts", "revisions", "seo"],
+      "fields": [
+        { "slug": "title", "label": "Title", "type": "string", "required": true },
+        { "slug": "featured_image", "label": "Featured Image", "type": "image" },
+        { "slug": "content", "label": "Content", "type": "portableText" },
+        { "slug": "excerpt", "label": "Excerpt", "type": "string" }
+      ]
+    },
+    {
+      "slug": "services",
+      "label": "Services",
+      "labelSingular": "Service",
+      "supports": ["drafts", "seo"],
+      "fields": [
+        { "slug": "title", "label": "Title", "type": "string", "required": true },
+        { "slug": "icon", "label": "Icon", "type": "string" },
+        { "slug": "short_description", "label": "Short Description", "type": "string" },
+        { "slug": "content", "label": "Content", "type": "portableText" }
+      ]
+    }
+  ],
+
+  "taxonomies": [
+    { "name": "category", "label": "Category", "collections": ["posts"], "hierarchical": false }
+  ],
+
+  "menus": [
+    {
+      "name": "primary",
+      "label": "Primary Navigation",
+      "items": [
+        { "type": "custom", "label": "Services", "url": "/services" },
+        { "type": "custom", "label": "About", "url": "/about" },
+        { "type": "custom", "label": "Blog", "url": "/blog" },
+        { "type": "custom", "label": "Contact", "url": "/contact" }
+      ]
+    }
+  ],
+
+  "content": {
+    "pages": [
+      {
+        "id": "home",
+        "slug": "home",
+        "status": "published",
+        "data": {
+          "title": "Home",
+          "content": [
+            {
+              "_type": "oss.hero",
+              "_key": "hero",
+              "badge": "Now Accepting New Patients",
+              "headline": "Advanced Spine & Recovery Care",
+              "subheadline": "Class IV laser therapy, shockwave treatment, and expert chiropractic care — backed by 357+ five-star reviews.",
+              "primaryCta": { "label": "Book Appointment", "url": "/contact" },
+              "secondaryCta": { "label": "Our Services", "url": "/services" },
+              "videoSrc": "/videos/man-outline-spine.mp4",
+              "services": [
+                { "icon": "⚡", "title": "Class IV Laser Therapy" },
+                { "icon": "🔊", "title": "Shockwave Treatment" },
+                { "icon": "🦴", "title": "Spinal Decompression" },
+                { "icon": "🤲", "title": "Chiropractic Care" }
+              ],
+              "stats": [
+                { "value": "357+", "label": "5-Star Reviews" },
+                { "value": "40W", "label": "Class IV Laser" },
+                { "value": "Same Day", "label": "Appointments" }
+              ]
+            },
+            {
+              "_type": "oss.trust-ticker",
+              "_key": "trust",
+              "items": [
+                { "icon": "⭐", "text": "357+ Five-Star Google Reviews" },
+                { "icon": "⚡", "text": "40W Class IV Laser — Most Powerful Available" },
+                { "icon": "📅", "text": "Same-Day Appointments Available" },
+                { "icon": "🛡️", "text": "Most Insurance Accepted" },
+                { "icon": "🌎", "text": "Se Habla Español" },
+                { "icon": "🏥", "text": "Advanced Recovery Technology" }
+              ]
+            },
+            {
+              "_type": "oss.service-grid",
+              "_key": "services",
+              "headline": "Advanced Treatment Options",
+              "subheadline": "Technology-driven care for lasting pain relief and recovery.",
+              "services": [
+                {
+                  "icon": "⚡",
+                  "title": "Class IV Laser Therapy",
+                  "description": "40W deep-tissue laser accelerates healing, reduces inflammation, and eliminates pain at the cellular level.",
+                  "link": "/services/laser-therapy"
+                },
+                {
+                  "icon": "🔊",
+                  "title": "Shockwave Therapy",
+                  "description": "Acoustic wave technology breaks up scar tissue and stimulates your body's natural healing response.",
+                  "link": "/services/shockwave"
+                },
+                {
+                  "icon": "🦴",
+                  "title": "Spinal Decompression",
+                  "description": "Non-surgical decompression relieves disc pressure, reducing pain from herniated and bulging discs.",
+                  "link": "/services/decompression"
+                },
+                {
+                  "icon": "🤲",
+                  "title": "Chiropractic Care",
+                  "description": "Evidence-based adjustments restore alignment, improve mobility, and support your nervous system.",
+                  "link": "/services/chiropractic"
+                },
+                {
+                  "icon": "💆",
+                  "title": "Therapeutic Massage",
+                  "description": "Targeted soft tissue work complements your treatment plan for faster, more complete recovery.",
+                  "link": "/services/massage"
+                },
+                {
+                  "icon": "🚗",
+                  "title": "Auto Injury Recovery",
+                  "description": "Comprehensive care for whiplash, back injuries, and soft tissue damage from auto accidents.",
+                  "link": "/services/auto-injury"
+                }
+              ]
+            },
+            {
+              "_type": "oss.why-us",
+              "_key": "why-us",
+              "headline": "Why Orlando Spine Studio",
+              "items": [
+                {
+                  "metric": "40W",
+                  "label": "Class IV Laser",
+                  "description": "The most powerful therapeutic laser available. Most clinics use 10-15W — we use 40W for deeper penetration and faster results."
+                },
+                {
+                  "metric": "DC+",
+                  "label": "Advanced Training",
+                  "description": "Dr. Bowles combines chiropractic expertise with cutting-edge technology and sports medicine experience."
+                },
+                {
+                  "metric": "357",
+                  "label": "Five-Star Reviews",
+                  "description": "Our patients consistently rate us 5 stars. Real results from real people who found lasting relief."
+                }
+              ]
+            },
+            {
+              "_type": "oss.team-spotlight",
+              "_key": "team",
+              "name": "Dr. James Bowles",
+              "title": "Founder & Lead Chiropractor",
+              "image": { "src": "/images/team/dr-james.webp", "alt": "Dr. James Bowles" },
+              "credentials": ["Doctor of Chiropractic", "VA Residency", "Valedictorian"],
+              "bio": "Dr. Bowles graduated valedictorian from chiropractic college and completed his residency at the VA hospital. He has worked with professional soccer teams, elite athletes, and patients from all walks of life. His approach combines traditional chiropractic care with the most advanced treatment technology available.",
+              "facts": ["Bilingual (English & Spanish)", "Private Pilot", "Pro Soccer Experience", "VA Hospital Trained"]
+            },
+            {
+              "_type": "oss.testimonials",
+              "_key": "testimonials",
+              "headline": "What Our Patients Say",
+              "reviews": [
+                {
+                  "name": "Maria G.",
+                  "text": "After years of back pain, Dr. Bowles and his team gave me my life back. The laser therapy made a difference I could feel after the first session.",
+                  "rating": 5,
+                  "source": "Google Review"
+                },
+                {
+                  "name": "James T.",
+                  "text": "Best chiropractor in Orlando, hands down. The technology they use is next-level. Same-day appointment and I walked out feeling like a new person.",
+                  "rating": 5,
+                  "source": "Google Review"
+                },
+                {
+                  "name": "Sarah K.",
+                  "text": "I was in a car accident and didn't know where to turn. Orlando Spine Studio handled everything — from treatment to insurance paperwork. Incredible team.",
+                  "rating": 5,
+                  "source": "Google Review"
+                }
+              ]
+            },
+            {
+              "_type": "oss.insurance-cta",
+              "_key": "cta",
+              "headline": "Ready to Feel Better?",
+              "subtext": "Same-day appointments available. Most insurance accepted. No referral needed.",
+              "ctaLabel": "Book Your Appointment",
+              "ctaUrl": "/contact",
+              "insuranceLogos": ["Blue Cross", "Aetna", "Cigna", "United Healthcare", "Medicare", "Humana"]
+            }
+          ]
+        }
+      },
+      {
+        "id": "contact",
+        "slug": "contact",
+        "status": "published",
+        "data": {
+          "title": "Contact",
+          "content": [
+            {
+              "_type": "block",
+              "style": "normal",
+              "children": [{ "_type": "span", "text": "Ready to start feeling better? Call us at (407) 658-6500 or visit us at 11500 University Blvd, Ste #103, Orlando, FL 32817." }]
+            }
+          ]
+        }
+      },
+      {
+        "id": "about",
+        "slug": "about",
+        "status": "published",
+        "data": {
+          "title": "About",
+          "content": [
+            {
+              "_type": "oss.team-spotlight",
+              "_key": "about-team",
+              "name": "Dr. James Bowles",
+              "title": "Founder & Lead Chiropractor",
+              "image": { "src": "/images/team/dr-james.webp", "alt": "Dr. James Bowles" },
+              "credentials": ["Doctor of Chiropractic", "VA Residency", "Valedictorian"],
+              "bio": "Dr. Bowles graduated valedictorian from chiropractic college and completed his residency at the VA hospital. With experience treating professional athletes and veterans, he brings a unique combination of expertise and technology to every patient visit. Orlando Spine Studio was founded on the belief that everyone deserves access to advanced, evidence-based care.",
+              "facts": ["Bilingual (English & Spanish)", "Private Pilot", "Pro Soccer Experience", "VA Hospital Trained"]
+            }
+          ]
+        }
+      }
+    ],
+    "services": [
+      {
+        "id": "chiropractic",
+        "slug": "chiropractic",
+        "status": "published",
+        "data": {
+          "title": "Chiropractic Care",
+          "icon": "🤲",
+          "short_description": "Evidence-based spinal adjustments to restore alignment, improve mobility, and support nervous system function.",
+          "content": [{ "_type": "block", "style": "normal", "children": [{ "_type": "span", "text": "Our chiropractic care combines traditional hands-on techniques with modern diagnostic technology for precise, effective treatment." }] }]
+        }
+      },
+      {
+        "id": "laser-therapy",
+        "slug": "laser-therapy",
+        "status": "published",
+        "data": {
+          "title": "Class IV Laser Therapy",
+          "icon": "⚡",
+          "short_description": "40W deep-tissue laser accelerates healing, reduces inflammation, and provides lasting pain relief.",
+          "content": [{ "_type": "block", "style": "normal", "children": [{ "_type": "span", "text": "Our 40W Class IV laser is the most powerful therapeutic laser available — most clinics use only 10-15W. Higher power means deeper tissue penetration and faster results." }] }]
+        }
+      },
+      {
+        "id": "shockwave",
+        "slug": "shockwave",
+        "status": "published",
+        "data": {
+          "title": "Shockwave Therapy",
+          "icon": "🔊",
+          "short_description": "Acoustic wave technology breaks up scar tissue and stimulates natural healing.",
+          "content": [{ "_type": "block", "style": "normal", "children": [{ "_type": "span", "text": "Shockwave therapy uses focused acoustic waves to break down scar tissue, increase blood flow, and trigger your body's natural repair mechanisms." }] }]
+        }
+      },
+      {
+        "id": "decompression",
+        "slug": "decompression",
+        "status": "published",
+        "data": {
+          "title": "Spinal Decompression",
+          "icon": "🦴",
+          "short_description": "Non-surgical treatment for herniated discs, bulging discs, and chronic back pain.",
+          "content": [{ "_type": "block", "style": "normal", "children": [{ "_type": "span", "text": "Spinal decompression gently stretches the spine, creating negative pressure that allows herniated or bulging disc material to retract — relieving pressure on nerves." }] }]
+        }
+      },
+      {
+        "id": "massage",
+        "slug": "massage",
+        "status": "published",
+        "data": {
+          "title": "Therapeutic Massage",
+          "icon": "💆",
+          "short_description": "Targeted soft tissue therapy that complements your treatment plan for faster recovery.",
+          "content": [{ "_type": "block", "style": "normal", "children": [{ "_type": "span", "text": "Our therapeutic massage services are designed to complement your chiropractic treatment, addressing muscle tension and soft tissue restrictions that contribute to pain." }] }]
+        }
+      },
+      {
+        "id": "auto-injury",
+        "slug": "auto-injury",
+        "status": "published",
+        "data": {
+          "title": "Auto Injury Recovery",
+          "icon": "🚗",
+          "short_description": "Comprehensive care for whiplash, back injuries, and soft tissue damage from auto accidents.",
+          "content": [{ "_type": "block", "style": "normal", "children": [{ "_type": "span", "text": "We specialize in auto injury recovery — from initial evaluation through complete rehabilitation. We handle insurance paperwork so you can focus on healing." }] }]
+        }
+      }
+    ]
+  }
+}

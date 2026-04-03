@@ -1,0 +1,31 @@
+---
+import { getEmDashEntry } from "emdash";
+import Base from "../layouts/Base.astro";
+import MarketingBlocks from "../components/MarketingBlocks.astro";
+
+const { entry: page, cacheHint } = await getEmDashEntry("pages", "about");
+
+try {
+  Astro.cache.set(cacheHint);
+} catch {}
+
+const pageContent = page?.data.content;
+---
+
+<Base
+  title="About Dr. James Bowles"
+  description="Meet Dr. James Bowles — founder of Orlando Spine Studio. Valedictorian, VA residency, bilingual, and dedicated to advanced chiropractic care."
+>
+  {pageContent ? (
+    <MarketingBlocks value={pageContent} />
+  ) : (
+    <div class="page-content section">
+      <h1>About Orlando Spine Studio</h1>
+      <p>Content coming soon. <a href="/_emdash/admin">Edit in admin →</a></p>
+    </div>
+  )}
+</Base>
+
+<style>
+  .page-content { max-width: 800px; margin: 0 auto; padding-top: 120px; }
+</style>

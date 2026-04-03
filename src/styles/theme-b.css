@@ -1,0 +1,22 @@
+/* Theme B — "Warm Authority" — Navy + Gold, luxury serif */
+:root {
+  --font-display: 'Cormorant Garamond';
+  --font-body: 'DM Sans';
+  --font-mono: 'DM Mono';
+
+  --bg: #0d1117;
+  --bg-alt: #131a24;
+  --surface: #1a2332;
+  --border: rgba(255, 255, 255, 0.08);
+  --accent: #c9a84c;
+  --accent-dark: #b08e3a;
+  --accent-soft: rgba(201, 168, 76, 0.12);
+  --accent-glow: rgba(201, 168, 76, 0.3);
+  --dark-footer: #080b10;
+  --text: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --nav-bg: rgba(13, 17, 23, 0.9);
+  --hero-gradient: linear-gradient(135deg, #0f1c2e 0%, #0d1117 100%);
+  --card-bg: rgba(255, 255, 255, 0.03);
+}

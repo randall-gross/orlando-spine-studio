@@ -1,0 +1,43 @@
+---
+import { getEmDashEntry } from "emdash";
+import Base from "../layouts/Base.astro";
+import MarketingBlocks from "../components/MarketingBlocks.astro";
+
+const { entry: page, cacheHint } = await getEmDashEntry("pages", "home");
+
+try {
+  Astro.cache.set(cacheHint);
+} catch {}
+
+const pageTitle = page?.data.title;
+const pageContent = page?.data.content;
+---
+
+<Base
+  title={pageTitle !== "Home" ? pageTitle : undefined}
+  description="Orlando Spine Studio — Advanced chiropractic care, Class IV laser therapy, and recovery treatments in Orlando, FL."
+>
+  {
+    pageContent ? (
+      <MarketingBlocks value={pageContent} />
+    ) : (
+      <div class="empty-state">
+        <h1>Orlando Spine Studio</h1>
+        <p>Content is being set up. Visit the admin to get started.</p>
+        <a href="/_emdash/admin" class="btn btn-primary">Open Admin</a>
+      </div>
+    )
+  }
+</Base>
+
+<style>
+  .empty-state {
+    text-align: center;
+    padding: 120px 24px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .empty-state h1 { margin-bottom: 16px; }
+  .empty-state p { color: var(--text-secondary); margin-bottom: 24px; }
+</style>

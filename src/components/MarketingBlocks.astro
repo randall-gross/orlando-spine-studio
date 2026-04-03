@@ -1,0 +1,37 @@
+---
+/**
+ * Custom Portable Text renderer for Orlando Spine Studio blocks.
+ *
+ * Maps custom block types (oss.hero, oss.service-grid, etc.)
+ * to their corresponding Astro components.
+ */
+import type { PortableTextBlock } from "emdash";
+import { PortableText } from "emdash/ui";
+import Hero from "./blocks/Hero.astro";
+import TrustTicker from "./blocks/TrustTicker.astro";
+import ServiceGrid from "./blocks/ServiceGrid.astro";
+import WhyUs from "./blocks/WhyUs.astro";
+import TeamSpotlight from "./blocks/TeamSpotlight.astro";
+import Testimonials from "./blocks/Testimonials.astro";
+import InsuranceCTA from "./blocks/InsuranceCTA.astro";
+import FAQ from "./blocks/FAQ.astro";
+
+interface Props {
+  value: PortableTextBlock[];
+}
+
+const { value } = Astro.props;
+
+const ossTypes = {
+  "oss.hero": Hero,
+  "oss.trust-ticker": TrustTicker,
+  "oss.service-grid": ServiceGrid,
+  "oss.why-us": WhyUs,
+  "oss.team-spotlight": TeamSpotlight,
+  "oss.testimonials": Testimonials,
+  "oss.insurance-cta": InsuranceCTA,
+  "oss.faq": FAQ,
+};
+---
+
+<PortableText value={value} components={{ type: ossTypes }} />

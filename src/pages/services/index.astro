@@ -1,0 +1,64 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../../layouts/Base.astro";
+
+const { entries: services, cacheHint } = await getEmDashCollection("services");
+
+try {
+  Astro.cache.set(cacheHint);
+} catch {}
+---
+
+<Base
+  title="Services"
+  description="Explore our advanced treatment options — chiropractic care, Class IV laser therapy, shockwave therapy, spinal decompression, massage, and auto injury recovery."
+>
+  <section class="services-page section">
+    <h1>Our Services</h1>
+    <p class="services-intro">Advanced treatment options for pain relief, recovery, and performance.</p>
+    {services && services.length > 0 ? (
+      <div class="services-list">
+        {services.map((svc) => (
+          <a href={`/services/${svc.id}`} class="service-card">
+            <h3>{svc.data.title}</h3>
+            {svc.data.short_description && <p>{svc.data.short_description}</p>}
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p>Services are being added. <a href="/_emdash/admin">Edit in admin →</a></p>
+    )}
+  </section>
+</Base>
+
+<style>
+  .services-page { max-width: 1000px; margin: 0 auto; padding-top: 120px; }
+  .services-intro { color: var(--text-secondary); margin: 12px 0 48px; font-size: 18px; }
+
+  .services-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    display: block;
+    padding: 32px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--accent-soft);
+  }
+
+  .service-card h3 { font-size: 20px; margin-bottom: 8px; }
+  .service-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+  @media (max-width: 600px) {
+    .services-list { grid-template-columns: 1fr; }
+  }
+</style>

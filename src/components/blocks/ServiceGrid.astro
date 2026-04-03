@@ -1,0 +1,95 @@
+---
+interface Props {
+  node: {
+    headline?: string;
+    subheadline?: string;
+    services: Array<{
+      icon: string;
+      title: string;
+      description: string;
+      link?: string;
+    }>;
+  };
+}
+
+const { node } = Astro.props;
+const { headline, subheadline, services } = node;
+---
+
+<section class="services section">
+  {headline && (
+    <div class="services-header">
+      <h2>{headline}</h2>
+      {subheadline && <p>{subheadline}</p>}
+    </div>
+  )}
+  <div class="services-grid">
+    {services.map((svc, i) => (
+      <div class="service-card reveal" style={`transition-delay: ${i * 80}ms`}>
+        <span class="service-icon">{svc.icon}</span>
+        <h3 class="service-title">{svc.title}</h3>
+        <p class="service-desc">{svc.description}</p>
+        {svc.link && <a href={svc.link} class="service-link">Learn more →</a>}
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll(".service-card.reveal").forEach((el) => observer.observe(el));
+</script>
+
+<style>
+  .services-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .services-header p {
+    color: var(--text-secondary);
+    margin-top: 12px;
+    max-width: 600px;
+    margin-inline: auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--card-bg, var(--surface));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s, transform 0.6s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px var(--accent-soft);
+  }
+
+  .service-icon { font-size: 32px; display: block; margin-bottom: 16px; }
+  .service-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+  .service-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+  .service-link { font-size: 14px; color: var(--accent); font-weight: 600; text-decoration: none; transition: gap 0.2s; }
+  .service-link:hover { color: var(--accent-dark); }
+
+  @media (max-width: 768px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>
