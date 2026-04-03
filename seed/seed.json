@@ -257,6 +257,48 @@
         }
       }
     ],
+    "posts": [
+      {
+        "id": "what-is-class-iv-laser-therapy",
+        "slug": "what-is-class-iv-laser-therapy",
+        "status": "published",
+        "data": {
+          "title": "What Is Class IV Laser Therapy and How Does It Work?",
+          "excerpt": "Learn how our 40W Class IV laser penetrates deep tissue to accelerate healing, reduce inflammation, and provide lasting pain relief.",
+          "content": [
+            { "_type": "block", "style": "normal", "children": [{ "_type": "span", "text": "Class IV laser therapy is one of the most advanced non-invasive treatments available for pain relief and tissue healing. At Orlando Spine Studio, we use a 40W Class IV laser — the most powerful therapeutic laser available — to deliver deep-tissue treatment that most clinics simply can't match." }] },
+            { "_type": "block", "style": "normal", "children": [{ "_type": "span", "text": "Most chiropractic offices use 10-15W lasers. The difference matters: higher wattage means deeper tissue penetration, faster treatment times, and more effective results. Our patients often feel improvement after their very first session." }] },
+            { "_type": "block", "style": "normal", "children": [{ "_type": "span", "text": "The laser works by stimulating cellular energy production (ATP) in damaged tissues. This accelerates your body's natural healing processes, reduces inflammation, and blocks pain signals. It's FDA-cleared, completely painless, and requires no downtime." }] }
+          ]
+        }
+      },
+      {
+        "id": "5-signs-you-need-a-chiropractor",
+        "slug": "5-signs-you-need-a-chiropractor",
+        "status": "published",
+        "data": {
+          "title": "5 Signs You Need to See a Chiropractor",
+          "excerpt": "Chronic back pain isn't the only reason to visit a chiropractor. Here are five signs your body is telling you it's time.",
+          "content": [
+            { "_type": "block", "style": "normal", "children": [{ "_type": "span", "text": "Many people think chiropractors only treat back pain. While that's certainly one of the most common reasons patients visit us, there are several other signs that chiropractic care could significantly improve your quality of life." }] },
+            { "_type": "block", "style": "normal", "children": [{ "_type": "span", "text": "1. Frequent headaches — especially tension headaches that start at the base of your skull. 2. Limited range of motion — if turning your head or bending has become difficult. 3. Sharp leg pain or tingling — often a sign of a pinched nerve or sciatica. 4. You sit for long periods — desk work creates postural imbalances that compound over time. 5. Recent auto accident — even low-speed collisions can cause whiplash and soft tissue damage that may not show symptoms for days or weeks." }] }
+          ]
+        }
+      },
+      {
+        "id": "auto-accident-what-to-do-first",
+        "slug": "auto-accident-what-to-do-first",
+        "status": "published",
+        "data": {
+          "title": "Been in an Auto Accident? Here's What to Do First",
+          "excerpt": "The steps you take in the first 72 hours after a car accident can make or break your recovery. Here's your action plan.",
+          "content": [
+            { "_type": "block", "style": "normal", "children": [{ "_type": "span", "text": "If you've been in a car accident — even a minor fender bender — the most important thing you can do is get evaluated by a healthcare provider within 72 hours. Many injuries, especially whiplash and soft tissue damage, don't show symptoms immediately. Adrenaline masks pain, and inflammation builds gradually." }] },
+            { "_type": "block", "style": "normal", "children": [{ "_type": "span", "text": "At Orlando Spine Studio, we specialize in auto injury recovery. We offer same-day appointments, handle all insurance paperwork, and create a comprehensive treatment plan tailored to your specific injuries. Don't wait for the pain to get worse — early intervention leads to faster, more complete recovery." }] }
+          ]
+        }
+      }
+    ],
     "services": [
       {
         "id": "chiropractic",
