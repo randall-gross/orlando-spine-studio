@@ -1,7 +1,7 @@
 # Orlando Spine Studio — emdash CMS
 
 **Stack:** Astro 6 + emdash CMS + SQLite (dev) / Cloudflare D1 (prod)
-**Admin UI:** `http://localhost:4321/_emdash/admin`
+**Admin UI:** `http://localhost:4321/studio-ops/admin` (custom path — see middleware)
 
 ## Commands
 
@@ -24,6 +24,7 @@ pnpm run typecheck    # Astro type checking
 | `src/styles/theme-*.css` | Design tokens per concept (A=dark/teal, B=navy/gold, C=white/teal) |
 | `src/styles/global.css` | Shared styles, reset, typography, animations |
 | `emdash-env.d.ts` | Auto-generated types — don't edit manually |
+| `src/middleware.ts` | Admin path obfuscation — `/studio-ops/*` → `/_emdash/*`, blocks direct `/_emdash` in prod |
 
 ## Hard Rules
 
